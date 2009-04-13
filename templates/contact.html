@@ -1,0 +1,6 @@
+<div class="contact-block">
+	<div class="contact-name">{{ contact.first_name }} {{ contact.last_name }}</div>
+	{% if contact.title %}<div class="contact-title">{{ contact.title }}</div>{% endif %}
+	{% if contact.telephone %}<div class="contact-phone">{{ contact.telephone }}</div>{% endif %}
+	{% if contact.email %}<div class="contact-email"><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></div>{% endif %}
+</div>

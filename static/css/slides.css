@@ -1,0 +1,91 @@
+#container, #mainwrap {
+	width: auto;
+	border: 0;
+	background: transparent;
+	padding: 0 !important;
+}
+
+#nav {
+	height: 63px;
+	position: fixed;
+	_position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+	/* weirdddd IE bug (6 and 7). haslayout suspected but typical workarounds fail. no idea why this fixes it. */
+	*background: url(/static/images/blank.gif) no-repeat left top;
+}
+	#nav .wrap {
+		height: 63px;
+		position: absolute;
+		top: -63px;
+		width: 100%;
+		background: url(/static/images/compnav-bg.png) repeat-x left top;
+		_position: absolute;
+		_background: url(/static/images/compnav-bg.8bit.png) repeat-x left top;
+		
+	}
+	#nav #comp_info {
+		padding-left: 15px;
+	}
+		#nav #comp_info a {
+			float: left;
+			margin-right: 14px;
+			color: #b1b0b0;
+			text-decoration: none;
+			background: url(/static/images/compnav_project.png) no-repeat left 50%;
+			_background: url(/static/images/compnav_project.8bit.png) no-repeat left 50%;
+			line-height: 43px;
+			padding-left: 26px;
+			font-size: 1.3em;
+		}
+		#nav #comp_info a:hover {
+			color: #dadada;
+		}
+		#nav #comp_info h1 {
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: bold;
+			font-size: 1.3em;
+			color: #fff;
+			background: url(/static/images/compnav_h1.gif) no-repeat left 50%;
+			padding-left: 14px;
+			float: left;
+			line-height: 43px;
+		}
+	#nav #comp_nav {
+		float: right;
+		background: url(/static/images/compnav_navbg.png) no-repeat;
+		_background: none;
+		padding-left: 20px;
+		padding-right: 10px;
+	}
+		#nav #comp_nav a {
+			width: 70px;
+			height: 43px;
+			display: block;
+			float: left;
+			text-indent: -9000px;
+			background-position: left top;
+		}
+		#nav #comp_nav a#prev {
+			background-image: url(/static/images/compnav_navprev.png);
+		}
+		#nav #comp_nav a#next {
+			background-image: url(/static/images/compnav_navnext.png);
+		}
+		#nav #comp_nav a:hover {
+			background-position: left bottom;
+		}
+#slide {
+/*	width: 100%;
+/*	height: 1500px;*/
+}
+	#slide a {
+		/*width: 100%;
+		height: 100%;
+		text-indent: -9000px;
+		display: block;*/
+	}
+	#slide img {
+	
+	}

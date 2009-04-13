@@ -1,0 +1,40 @@
+{% if comp.slides %}
+<li>
+	{% if comp.active %}
+		<a href="{{ comp.link }}" title="{{ comp.name }}">
+			{{ comp.name }}
+		</a>
+	{% else %}
+		{% if user.is_staff %}
+			<a href="{{ comp.link }}" title="{{ comp.name }}" class="inactive">
+				{{ comp.name }}
+			</a>
+		{% endif %}
+	{% endif %}
+</li>
+<ul class="slides">
+	{% for slide in comp.slides.all %}
+		<li>
+			{% if comp.active %}
+				{% if slide.active %}
+					<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}">
+						{{ slide.name }}
+					</a>
+				{% else %}
+					{% if user.is_staff %}
+					<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}" class="inactive">
+						{{ slide.name }}
+					</a>
+					{% endif %}
+				{% endif %}
+			{% else %}
+				{% if user.is_staff %}
+				<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}" class="inactive">
+					{{ slide.name }}
+				</a>
+				{% endif %}
+			{% endif %}
+		</li>
+	{% endfor %}
+</ul>
+{% endif %}

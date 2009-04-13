@@ -1,0 +1,41 @@
+#container {
+	border: none;
+}
+	#container #mainwrap {
+		padding: 0;
+	}
+	#container .catblock {
+		padding: 0;
+	}
+	#container #maincontent {
+		width: 100%;
+		border-top: 1px solid #000;
+		padding-top: 16pt;
+	}
+		#container #maincontent .content {
+			padding: 0;
+		}
+	
+	#container .tabs-hide {
+		display: none !important;
+	}
+	#container #main {
+		width: 350pt;
+		margin-right: 30pt;
+	}
+	#container .contentblock {
+		width: auto !important;
+	}
+	#container #project_nav {
+		width: 175pt !important;
+	}
+	#container a#logout {
+		visibility: hidden;
+	}
+	.contentblock ul.links li {
+		color: #000 !important;
+	}
+	#container #maincontent h1 {
+		text-indent: 0;
+		padding: 0;
+	}

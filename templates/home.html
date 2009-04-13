@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block page_title %} 
+	Clients : Projects
+{% endblock %}
+{% block section_css %}
+		<link href="{{ MEDIA_URL }}/static/css/landing.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block section_js %}
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/landing.js"></script>
+{% endblock %}
+
+{% block main_content %}
+
+<div id="main" class="clear">
+	<div id="content-1">
+		<a href="/home/"><img src="{{ MEDIA_URL}}/static/images/logo_lovin_oven.gif" /></a>
+	</div>
+	<div id="maincontent">
+		<h1 class="clients">Clients</h1>
+		<div class="content">
+		{% if clients %}
+			{% for client in clients %}
+			<div class="client">
+				<div class="head">
+					<h2><a href="javascript:void(0);" title="{{ client.name }}">{{ client.name }}</a></h2>
+					<p class="pm">
+						{{ client.contact.first_name }} {{ client.contact.last_name }}
+					</p>
+				</div>
+				
+				{% if client.projects %}
+				<div class="projects" style="display:none;">
+					<ul>
+						{% for project in client.projects.all %}
+						<li>
+							<a href="/client/{{ client.path }}/{{ project.path }}/#{{ project.default_category }}">
+								{{ project.name }}
+							</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+				{% endif %}
+			</div>
+			{% endfor %}
+		{% endif %}
+		</div>
+	</div>
+</div>
+
+<div id="sidebar">
+	<a id="logout" href="/logout/">Log Out</a>
+</div>
+
+{% endblock %}

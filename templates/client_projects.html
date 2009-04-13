@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block page_title %} 
+	Clients : Projects
+{% endblock %}
+
+{% block section_css %}
+		<style type="text/css">
+			#maincontent .content {
+				padding: 0 6.5em;
+			}
+		</style>
+{% endblock %}
+
+{% block section_js %}
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/dropdown.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/staging.js"></script>
+{% endblock %}
+
+
+{% block main_content %}
+
+<div id="main" class="clear">
+	<div id="content-1">
+	{% include "includes/header.html" %}
+	</div>
+		<div id="maincontent">
+				{% if client %}
+				<h1>{{ client.name }}</h1>
+				<div class="content">
+					<div class="projects">
+						<div class="head">
+							<h2 class="projects">Projects</h2>
+						</div>
+						{% if client.projects %}
+						<ul class="projects">
+							{% for project in client.projects.all %}
+							{% if project.active %}
+							<li><a href="/client/{{ client.path }}/{{ project.path }}/#{{ project.default_category }}">{{ project.name }}</a></li>
+							{% endif %}
+							{% endfor %}
+						</ul>
+						{% endif %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+</div>
+
+<div id="sidebar">
+	<a id="logout" href="/logout/">Log Out</a>
+	<a href="/home/"><img src="{{ MEDIA_URL }}/static/images/logo_ai.gif" alt="Alexander Interactive Staging Site"  title="Alexander Interactive Staging Site" class="ai-logo" width="42" /></a>
+	{% include "includes/info.html" %}
+</div>
+
+<!--
+Create a User / Client:
+<form action="" method="post">
+<input type="text" name="username">
+<input type="password" name="password">
+<input type="submit" value="Create User / Client"
+</form>
+-->
+{% endblock %}

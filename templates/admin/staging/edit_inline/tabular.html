@@ -1,0 +1,90 @@
+{% load i18n %}
+<script type="text/javascript">
+	var project_id = project_id || window.location.toString().split("/project/")[1].replace('/','');
+</script>
+<div class="inline-group">
+	<div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
+	{{ inline_admin_formset.formset.management_form }}
+	<fieldset class="module">
+		<h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst|escape }}</h2>
+		{{ inline_admin_formset.formset.non_form_errors }}
+		<table>
+			<thead><tr>
+			{% for field in inline_admin_formset.fields %}
+				{% if not field.is_hidden %}
+					<th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst|escape }}</th>
+				{% endif %}
+			{% endfor %}
+			{% if inline_admin_formset.formset.can_delete %}<th>{% trans "Delete" %}?</th>{% endif %}
+			</tr></thead>
+
+			{% for inline_admin_form in inline_admin_formset %}
+			<tr class="{% cycle row1,row2 %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}">
+
+			<td class="original">
+			  {% if inline_admin_form.original or inline_admin_form.show_url %}<p>
+			  {% if inline_admin_form.original %} 
+				{% if inline_admin_formset.opts.modeltype %}
+				<a href='/admin/staging/{{inline_admin_formset.opts.modeltype}}/{{inline_admin_form.original.id}}'>{{ inline_admin_form.original.name }}</a>
+				{% else %}
+				{{ inline_admin_form.original }}
+				{% endif %}
+			  {% endif %}
+			  {% if inline_admin_form.show_url %}<a href="/r/{{ inline_admin_form.original.content_type_id }}/{{ inline_admin_form.original.id }}/">View on site</a>{% endif %}
+				</p>{% endif %}
+			  {{ inline_admin_form.pk_field.field }}
+			  {% spaceless %}
+			  {% for fieldset in inline_admin_form %}
+				{% for line in fieldset %}
+				  {% for field in line %}
+					{% if field.is_hidden %} {{ field.field }} {% endif %}
+				  {% endfor %}
+				{% endfor %}
+			  {% endfor %}
+			  {% endspaceless %}
+			</td>
+
+			{% for fieldset in inline_admin_form %}
+			  {% for line in fieldset %}
+				{% for field in line %}
+					<td {% ifequal field.field.name "category" %}id="filterme"{% endifequal %} class="{{ field.field.name }}">
+					{{ field.field.errors.as_ul }}
+					{{ field.field }}
+					{% ifequal field.field.name "category" %}
+					<script type="text/javascript">
+						var t = document.getElementById('filterme');
+						t.id = null;
+						var options = t.getElementsByTagName('option');
+						var sel = options[0].parentNode;
+						var toremove = [];
+						for (var i=1;i<options.length;i++){
+							var opt = options[i];
+							var parts = opt.firstChild.data.split(' : ');
+							if (parts[0] != project_id)
+								toremove.push(opt);
+							else opt.firstChild.data = parts[1];
+						}
+						for (var i=0;i<toremove.length;i++){
+							sel.removeChild(toremove[i]);
+						}
+						
+					</script>
+					{% endifequal %}
+					</td>
+				{% endfor %}
+			  {% endfor %}
+			{% endfor %}
+
+			{% if inline_admin_formset.formset.can_delete %}
+			  <td class="delete">{% if inline_admin_form.original %}{{ inline_admin_form.deletion_field.field }}{% endif %}</td>
+			{% endif %}
+
+			</tr>
+
+		 {% endfor %}
+
+		</table>
+
+	</fieldset>
+	</div>
+</div>

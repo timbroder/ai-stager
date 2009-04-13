@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block page_title %} 
+	Login
+{% endblock %}
+
+{% block section_css %}
+		<link href="{{ MEDIA_URL }}/static/css/login.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block section_js %}
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/login.js"></script>
+{% endblock %}
+
+{% block main_content %}
+	<div id="loginbox">
+		<div id="logincontent">
+			<div id="login-fields">
+				<form action="/login/" method="post" id="login_form">
+					<fieldset>
+						<div class="fieldline clear">
+							<label for="username">Username:</label>
+							<input type="text" name="username" id="username" />
+						</div>
+
+						<div class="fieldline clear">
+							<label for="password">Password:</label>
+							<input type="password" name="password" id="password" />
+						</div>
+
+						<div class="fieldline indent clear">
+							<input type="checkbox" class="check" name="remember" id="remember" />
+							<label for="remember">Remember me next time</label>
+						</div>
+
+						<div class="fieldline indent clear">
+							<input name="Log in" type="submit" id="login-button" value="Log In" />
+							<input type="hidden" value="{{ redirect }}" name="redirect" id="redirect"/>
+						</div>
+
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
