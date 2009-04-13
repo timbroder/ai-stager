@@ -1,7 +1,5 @@
 # Ai Stager
 
----
-
 ## Overview
 
 **Ai Stager** is a Django powered staging platform for displaying design compositions to clients in a structured manner using an outlined view with project resources.
@@ -17,8 +15,6 @@
 4. Setup your database and add the criteria to ``settings.py``. Works with Django >= 1.0.
 
 3. Run ``python manage.py syncdb`` and create an admin user.
-
----
 
 # Using Ai Stager
 
@@ -98,15 +94,11 @@ NOTE: Don't add contacts under this section, as you cannot add multiple contacts
 
 # Congratulations! You have staged!
 
----
-
 # Development and contributions
 
 This is an initial release. Expect regular improvements.
 
 We welcome any improvements or suggestions to Ai Stager.  Please contact us through our github account.
-
----
 
 # Author & License
 
