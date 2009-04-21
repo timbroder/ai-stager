@@ -102,7 +102,7 @@ We welcome any improvements or suggestions to Ai Stager.  Please contact us thro
 
 # Author & License
 
-Ai Stager was originally developed for Ai's Internal use by Loren Davie and later re-factored by David Napolitan.  The initial HTML integration was done by Tom Rosario.  Ai Stager is now maintained by Sean Auriti and Nick Angiolillo with project management by Amanda McCroskery. Favicon by Skottey Forden. Repo magic by Joshua Rusch. QA by David Kamm, Robert Gurdian and Alex Schmelkin. Used by all Ai PMS. Final word by Josh Levine.
+Ai Stager was originally developed for Ai's Internal use by Loren Davie and later re-factored by David Napolitan.  The initial HTML integration was done by Tom Rosario.  Ai Stager is now maintained by Sean Auriti and Nick Angiolillo with project management and original documentation by Amanda McCroskery. Favicon by Skottey Forden. Repo magic by Joshua Rusch. QA by David Kamm, Robert Gurdian and Alex Schmelkin. Used by all Ai PMS. Final word by Josh Levine.
 
 Ai Stager is licensed under a modified MIT licence. See LICENCE.txt.
 
