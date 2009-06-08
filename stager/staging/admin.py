@@ -16,6 +16,7 @@ class ClientAdmin(admin.ModelAdmin):
     prepopulated_fields = {"path": ("name",)}
     inlines = [ProjectInline,]
     form = ClientLogoSizeAdminForm
+    ordering = ['name']
     class Media:
         js = ('js/jquery.1.3.1.min.js', 'js/client.js',)
 
@@ -47,6 +48,7 @@ class ProjectAdmin(admin.ModelAdmin):
     fields = ('client', 'name', 'path', 'active')
     prepopulated_fields = {"path": ("name",)}
     list_filter = ('client', )
+    ordering = ['-client', 'name']
     inlines = [CategoryInline, SectionInline, ResourcesInline]
 
 

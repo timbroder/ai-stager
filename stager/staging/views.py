@@ -52,7 +52,7 @@ def logout(request):
 
 @login_required
 def home(request):
-    clients = Client.objects.all()
+    clients = Client.objects.all().order_by('name')
     try:
         if not request.user.is_staff:
             return client_projects(request, Client.objects.get(user=request.user))
