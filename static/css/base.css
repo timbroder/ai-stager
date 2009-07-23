@@ -508,3 +508,209 @@ body {
 	#maincontent div.projects ul {
 		padding: 1em 0;
 	}
+/*	
+#overlay {
+	background: #f00;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+}*/
+
+#content-l {
+	position: relative;
+}
+
+#edit_slide {
+	width: 867px;
+	position: absolute;
+	z-index: 100;
+	top: 300px;
+	left: 13px;
+	background: url(/static/images/admin/box_body.png) bottom no-repeat;
+}
+	#edit_slide .header {
+		background: url(/static/images/admin/box_header.png) no-repeat;
+		height: 12px;
+		margin-top: -12px;
+	}
+		#edit_slide .header a.close {
+			width: 24px;
+			height: 25px;
+			background: url(/static/images/admin/box_close.png) no-repeat;
+			position: absolute;
+			right: -3px;
+			top: -16px;
+			text-indent: -9000px;
+		}
+		#edit_slide .header a.close:hover {
+			background-position: 0 -25px;
+		}
+	#edit_slide .wrap {
+		width: 823px;
+		margin: 15px auto 20px;
+	}
+		#edit_slide h2 {
+			font-family: Georgia, "Times New Roman", Times, serif;
+			color: #494949;
+			font-size: 1.8em;
+			border-bottom: 1px solid #ccc;
+			padding-bottom: 0.4em;
+		}
+		#edit_slide input {
+			border-width: 1px;
+			border-style: solid;
+			border-color: #7c7c7c #c3c3c3 #ddd #c3c3c3;
+			background-image: url(/static/images/admin/bg_input.png);
+			background-position: 0 0;
+			color: #494949;
+			font-size: 1.1em;
+			padding: 3px;
+		}
+		#edit_slide #group_properties {
+			background: #eee;
+			padding: 14px;
+		}
+		#edit_slide #slide_properties {
+			padding: 14px;
+		}
+			#slide_properties h2 {
+			}
+				#slide_properties h2 span.note {
+					font-size: 0.65em;
+					padding-left: 0.2em;
+					color: #aaa;
+				}
+			#slide_properties table {
+				width: 100%;
+			}
+				#slide_properties col.activity {
+					width: 42px;
+				}
+				#slide_properties col.title {
+					width: 294px;
+				}
+				#slide_properties col.image {
+					width: 94px;
+				}
+				#slide_properties col.background {
+					width: 125px;
+				}
+				#slide_properties col.alignment {
+					width: 114px;
+				}
+				#slide_properties col.approval {
+					width: 90px;
+				}
+				#slide_properties col.remove {
+				
+				}
+				#slide_properties th {
+					border-bottom: 1px solid #dbdbdb;
+					padding: 0.6em 0;
+				}
+					#slide_properties th h3 {
+						color: #494949;
+						font-weight: bold;
+						font-size: 1.1em;
+					}
+				#slide_properties th.activity h3, #slide_properties th.remove h3 {
+					visibility: hidden;
+				}
+				#slide_properties td {
+					padding: 8px 0;
+					border-bottom: 1px solid #dbdbdb;
+				}
+				#slide_properties td.activity {
+				
+				}
+					#slide_properties td.activity label {
+						background-image: url(/static/images/admin/icons.png);
+						background-position: 0 -50px;
+						display: block;
+						width: 16px;
+						height: 15px;
+						position: relative;
+						top: 3px;
+						margin: auto;
+					}
+					#slide_properties td.activity label.selected {
+						background-position: 0 0px;
+					}
+						#slide_properties td.activity label span {
+							display: none;
+						}
+						#slide_properties td.activity label input {
+							display: none;
+						}
+				#slide_properties td.title {
+				
+				}
+					#slide_properties td.title input {
+						width: 75%;
+					}
+				#slide_properties td.image {
+				
+				}
+				#slide_properties td.background {
+				
+				}
+				#slide_properties td.alignment {
+				
+				}
+				#slide_properties td.approval {
+				
+				}
+				#slide_properties td.remove {
+				
+				}
+					#slide_properties td.remove a {
+						display: block;
+						text-indent: -9000px;
+						background-image: url(/static/images/admin/icons.png);
+						background-position: 0 -100px;
+						width: 11px;
+						height: 11px;
+						margin: auto;
+					}
+		#edit_slide .controls {
+			overflow: auto;
+			padding: 15px;
+		}
+			#edit_slide .controls a.add {
+				float: left;
+				display: block;
+				background: url(/static/images/admin/button_add.png) no-repeat;
+				text-indent: -9000px;
+				width: 139px;
+				height: 26px;
+			}
+			#edit_slide .controls a.add:hover {
+				background-position: 0 -26px;
+			}
+			#edit_slide .controls a.cancel {
+				float: right;
+				font-size: 1.4em;
+				color: #9e9e9e;
+				margin-left: 15px;
+				text-decoration: underline;
+				line-height: 24px;
+			}
+			#edit_slide .controls a.cancel:hover {
+				color: #494949;
+			}
+			#edit_slide .controls a.done {
+				float: right;
+				display: block;
+				width: 82px;
+				height: 26px;
+				margin-left: 15px;
+				background: url(/static/images/admin/button_done.png) no-repeat;
+				text-indent: -9000px;
+			}
+			#edit_slide .controls a.done:hover {
+				background-position: 0 -26px;
+			}
+
+.big {font-size: 18px;}

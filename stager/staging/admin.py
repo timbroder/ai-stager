@@ -103,6 +103,7 @@ class CompSlideAdmin(admin.ModelAdmin):
 
 class LinkAdmin(admin.ModelAdmin):
     form = LinkSizeAdminForm
+    list_display = ('linked', 'remote_link','file_link', 'active', 'ordering')
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'project')

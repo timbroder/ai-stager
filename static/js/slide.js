@@ -7,7 +7,7 @@ $(document).ready(function() {
 		over: function() { $("#nav .wrap").animate({ top: "0"}, 250, "swing"); },
 		out:  function() { $("#nav .wrap").animate({ top: "-63px" }, 200, "swing"); },
 		sensitivity: 7,
-		interval: 100,
+		interval: 500,
 		timeout:  300
 	});
 });
