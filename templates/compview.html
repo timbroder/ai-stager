@@ -43,7 +43,11 @@
 {% endblock %}
 
 {% block main_content %}
-	<div id="slide">
-		<a href="{{next}}"><img src="{{MEDIA_URL}}/static/{{slide.image}}" /></a>
-	</div>
+	{% if slide %}
+		<div id="slide">
+			<a href="{{next}}"><img src="{{MEDIA_URL}}/static/{{slide.image}}" /></a>
+		</div>
+	{% else %}
+		<div class="big">There are no slides for this comp yet.</div>
+	{% endif %}
 {% endblock %}
