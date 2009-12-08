@@ -20,8 +20,7 @@ def list_projects(request, client_path, project_path):
     try:
         client = Client.objects.get(path=client_path)
         project = client.projects.get(path=project_path)
-        print client
-        print project
+
         try:
             jiras = ProjectLink.objects.get(ClientProject=project).JiraProject.exclude(filter_id='')
         except:
@@ -32,6 +31,7 @@ def list_projects(request, client_path, project_path):
                                                                    'user':request.user})
     except Client.DoesNotExist, Project.DoesNotExist:
         raise Http404
+
     
 @login_required
 @jira_auth_required
@@ -39,19 +39,27 @@ def view_project(request, client_path, project_path, jira_key):
     try:
         client = Client.objects.get(path=client_path)
         project = client.projects.get(path=project_path)
-        print client
-        print project
+
         soap = SOAPpy.WSDL.Proxy(JIRA_WSDL)
-        #auth = soap.login(JIRA_USER, JIRA_PASS)
         auth = request.session.get('jira_auth')
-        #print auth
-        print jira_key
+
         jira_project = JiraProject.objects.get(key=jira_key)
         jiras = soap.getIssuesFromFilterWithLimit(auth, "10312", 0, 999)
+        
         for jira in jiras:
-            print "%s %s %s" % (jira['key'], jira['summary'], jira['status'])
-            #print jira['key']
-            #print '!!!!!!!'
+            test = jira.key.split('-')
+            if len(test[1]) == 1:
+                pad = "000%s" % test[1]
+            elif len(test[1]) == 2:
+                pad = "00%s" % test[1]
+            elif len(test[1]) == 3:
+                pad = "0%s" % test[1]
+            else:
+                pad = test[1]
+                
+            jira.key = "%s-%s" % (test[0],pad)
+            print jira.key   
+            
         
         return render_to_response('jira_project.html', {'project':project, 
                                                                    'client':client,
@@ -67,21 +75,18 @@ def insert_issue(request, client_path, project_path, jira_key):
     try:
         client = Client.objects.get(path=client_path)
         project = client.projects.get(path=project_path)
-        #print client
-        #print project
+
         soap = SOAPpy.WSDL.Proxy(JIRA_WSDL)
-        #auth = soap.login(JIRA_USER, JIRA_PASS)
         auth = request.session.get('jira_auth')
-        #print auth
-        #print jira_key
+
         jira_project = JiraProject.objects.get(key=jira_key)
-        print jira_project
+
         issue_url = None
         if request.method == 'POST':
             form = JiraTicketForm(request.POST, request.FILES)
             if form.is_valid():
                 submitted = True
-                print jira_project.key
+
                 newissue = soap.createIssue(auth, {'project': jira_project.key, 
                                                    'type': '1', 
                                                    'description': form.cleaned_data['description'],
@@ -104,7 +109,6 @@ def insert_issue(request, client_path, project_path, jira_key):
                 issue_url = newissue['key']
         else:
             form = JiraTicketForm()
-            #form.set_choices([('bug', 'Bug'),('feature', 'New Feature')])
         
         return render_to_response('jira_create_issue.html', {'project':project, 
                                                                    'client':client,
