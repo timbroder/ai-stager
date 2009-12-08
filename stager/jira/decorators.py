@@ -1,6 +1,6 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponseRedirect
-from settings import JIRA_USER, JIRA_PASS, JIRA_WSDL
+from stager.settings import JIRA_USER, JIRA_PASS, JIRA_WSDL
 import SOAPpy
 
 def jira_auth_required(function=None):
