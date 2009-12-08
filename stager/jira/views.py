@@ -8,7 +8,7 @@ import django.contrib.auth as auth
 from django.http import HttpResponseRedirect, Http404
 from django.views.static import serve
 import re
-from settings import JIRA_USER, JIRA_PASS, JIRA_WSDL
+from stager.settings import JIRA_USER, JIRA_PASS, JIRA_WSDL
 import SOAPpy, getpass, datetime, array, base64
 from SOAPpy import Types
 from stager.jira.decorators import *

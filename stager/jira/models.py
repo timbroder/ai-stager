@@ -1,5 +1,5 @@
 from django.db import models
-from staging.models import *
+from stager.staging.models import *
 
 class JiraProject(models.Model):
     key = models.CharField(max_length=128)
