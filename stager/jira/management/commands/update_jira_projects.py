@@ -2,7 +2,7 @@ from django.core.management.base import NoArgsCommand
 from django.conf import settings
 import SOAPpy, getpass, datetime
 from settings import JIRA_USER, JIRA_PASS, JIRA_WSDL
-from jira.models import *
+from stager.jira.models import *
 
 class Command(NoArgsCommand):
     help = "Removes CompSlides from the database that do not have matching files on the drive."
