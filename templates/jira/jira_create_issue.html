@@ -42,24 +42,29 @@
 							<form id="jiraform" enctype="multipart/form-data" action="." method="POST">
 								<!--{{ form.as_p }}-->
 								<fieldset>
+									{% if form.summary.errors %}{{ form.summary.errors }}{% endif %}
 									<label for="id_summary">Summary:</label>
-									<textarea id="id_summary" name="summary"></textarea>
+									{{ form.summary }}
 								</fieldset>
 								<fieldset>
+									{% if form.issue_type.errors %}{{ form.issue_type.errors }}{% endif %}
 									<label for="id_issue_type">Issue type:</label>
 									{{ form.issue_type }}
 								</fieldset>
 								<fieldset>
+									{% if form.description.errors %}{{ form.description.errors }}{% endif %}
 									<label for="id_description">Description:</label>
-									<textarea id="id_description" name="description"></textarea>
+									{{ form.description }}
 								</fieldset>
 								<fieldset>
+									{% if form.steps_to_reproduce.errors %}{{ form.steps_to_reproduce.errors }}{% endif %}
 									<label for="id_steps_to_reproduce">Steps to reproduce:</label>
-									<textarea id="id_steps_to_reproduce" name="steps_to_reproduce"></textarea>
+									{{ form.steps_to_reproduce }}
 								</fieldset>
 								<fieldset>
+									{% if form.attachment.errors %}{{ form.attachment.errors }}{% endif %}
 									<label for="id_attachment">Attachment:</label>
-									<input id="id_attachment" type="file" name="attachment" class="attachment" />
+									{{ form.attachment }}
 								</fieldset>	
 								<fieldset>
 									<input type="submit" value="Submit" id="jiraformsubmit" class="submit" />
