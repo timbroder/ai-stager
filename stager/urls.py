@@ -11,6 +11,13 @@ urlpatterns = patterns('',
     url(r'^admin/export/', include('stager.export.urls')),
 )
 
+urlpatterns += patterns('stager.jira.views',
+    (r'^^client/(?P<client_path>.*)/(?P<project_path>.*)/jira/projects/$', 'list_projects'),
+    (r'^^client/(?P<client_path>.*)/(?P<project_path>.*)/jira/(?P<jira_key>.*)/add/$', 'insert_issue'),
+    (r'^^client/(?P<client_path>.*)/(?P<project_path>.*)/jira/(?P<jira_key>.*)/$', 'view_project'),
+
+)
+
 urlpatterns += patterns('stager.staging.views',
     (r'^home/$','home'),
 

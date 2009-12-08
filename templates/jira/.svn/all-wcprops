@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/72626/ai_stager/trunk/templates/jira
+END
+project.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/72062/ai_stager/trunk/templates/jira/project.html
+END
+jira_project.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/72626/ai_stager/trunk/templates/jira/jira_project.html
+END
+jira_create_issue.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/72687/ai_stager/trunk/templates/jira/jira_create_issue.html
+END
+jira_list_projects.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/72687/ai_stager/trunk/templates/jira/jira_list_projects.html
+END

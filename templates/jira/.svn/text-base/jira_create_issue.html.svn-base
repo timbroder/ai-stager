@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block page_title %} 
+	Clients : Projects
+{% endblock %}
+
+{% block section_css %}
+		<style type="text/css">
+			#maincontent .content {
+				padding: 0 6.5em;
+			}
+		</style>
+<link href="{{ MEDIA_URL }}/static/css/jira/jira_table.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block section_js %}
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/dropdown.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/staging.js"></script>
+{% endblock %}
+
+{% block main_content %}
+<div id="main" class="clear">
+	<div id="content-1">
+		{% include "includes/header.html" %}
+	</div>
+	<div id="maincontent">
+		{% if client %}
+			<h1>{{ client.name }}</h1>
+			<div class="content">
+				<div class="projects jira">
+					<div class="head">
+						<h2 class="projects">{{ jira_project.name }} - Create Issue</h2>
+					</div>
+					{% if issue_url %}
+						Thank you.  Created Issue: {{ issue_url }}<br/>
+						<a href="/client/{{ client_path }}/{{ project_path }}/jira/{{ jira_project.key }}">Return to Jira Project</a>. 
+						<a href="/client/{{ client_path }}/{{ project_path }}/jira/{{ jira_project.key }}/add">Add another issue</a>.
+					{% else %}
+						<div id="jira_form_wrapper">
+							<form id="jiraform" enctype="multipart/form-data" action="." method="POST">
+								<!--{{ form.as_p }}-->
+								<fieldset>
+									<label for="id_summary">Summary:</label>
+									<textarea id="id_summary" name="summary"></textarea>
+								</fieldset>
+								<fieldset>
+									<label for="id_issue_type">Issue type:</label>
+									<textarea id="id_issue_type" name="issue_type"></textarea>
+								</fieldset>
+								<fieldset>
+									<label for="id_issue_type">Issue type:</label>
+									<textarea id="id_issue_type" name="issue_type"></textarea>
+								</fieldset>
+								<fieldset>
+									<label for="id_description">Description:</label>
+									<textarea id="id_description" name="description"></textarea>
+								</fieldset>
+								<fieldset>
+									<label for="id_steps_to_reproduce">Steps to reproduce:</label>
+									<textarea id="id_steps_to_reproduce" name="steps_to_reproduce"></textarea>
+								</fieldset>
+								<fieldset>
+									<label for="id_attachment">Attachment:</label>
+									<input id="id_attachment" type="file" name="attachment" class="attachment" />
+								</fieldset>	
+								<fieldset>
+									<input type="submit" value="Submit" id="jiraformsubmit" class="submit" />
+									<img src="/static/images/ajax_loader.gif" class="spinner" style="display: none;" />
+								</fieldset>
+							</form>
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<div id="sidebar">
+	<a id="logout" href="/logout/">Log Out</a>
+	<a href="/home/"><img src="{{ MEDIA_URL }}/static/images/logo_ai.gif" alt="Alexander Interactive Staging Site"  title="Alexander Interactive Staging Site" class="ai-logo" width="42" /></a>
+	{% block project_links %}
+	{% if project.links.all %}
+		<div class="contact-list" id="project-links">
+			<h3><img src="{{ MEDIA_URL }}/static/images/title_project-resources.gif" alt="Project Resources" /></h3>
+			<ul>
+				<li><a href="/client/{{ client_path }}/{{ project_path }}/">Project Home</a></li>
+				{% for link in project.links.all %}
+					<li><a onclick="window.open(this.href);return false;" href="{{ link.link }}" >{{ link.name }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+	{% if project.ai_contacts %}
+		<div class="contact-list" id="ai-contacts">
+			<h3><img src="{{ MEDIA_URL }}/static/images/title_ai-contacts.gif" alt="AI Contacts" /></h3>
+			{% for contact in project.ai_contacts %}
+				{% include "contact.html" %}
+			{% endfor %}
+		</div>
+	{% endif %}
+	{% if project.client_contacts %}
+		<div class="contact-list" id="client-contacts">
+			<h3><img src="{{ MEDIA_URL }}/static/images/title_client-contacts.gif" alt="Client Contacts" /></h3>
+			{% for contact in project.client_contacts %}
+				{% include "contact.html" %}
+			{% endfor %}
+		</div>
+	{% endif %}
+	{% include "includes/info.html" %}
+	{% endblock %}
+</div>
+
+<script type="text/javascript">
+    $('#jiraform').submit(function(){
+		$('#jiraformsubmit').attr('disabled', 'disabled');
+		$("#jiraform").fadeTo("slow", 0.5);
+	});
+</script>
+{% endblock %}

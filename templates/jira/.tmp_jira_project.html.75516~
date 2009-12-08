@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block page_title %} 
+	{{ project.client.name }} : {{ project.name }} : Jira Projects
+{% endblock %}
+
+{% block section_css %}
+		<style type="text/css">
+			#maincontent .content {
+				padding: 0 6.5em;
+			}
+		</style>
+<link href="{{ MEDIA_URL }}/static/css/jira/jira_table.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}/static/css/jquery.fancybox-1.2.5.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block section_js %}
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/grid.locale-en.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/jquery.fancybox-1.2.5.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/dropdown.js"></script>
+{% endblock %}
+
+{% load issue_status %}
+{% block main_content %}
+<div id="main" class="clear">
+	<div id="content-1">
+		{% include "includes/header.html" %}
+	</div>
+	<div id="maincontent">
+		{% if client %}
+			<h1>{{ client.name }}</h1>
+			<div class="content">
+				<div class="projects">
+					<div class="head">
+						<h2 class="projects">{{ jira_project.name }}</h2>
+						<a href="add/" class="create_issue">Create Issue</a>
+					</div>
+					{% if jiras %}
+						<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+							<thead>
+								<tr>
+									<th>Issue</th>
+									<th>Summary</th>
+									<th>Description</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for jira in jiras %}
+									<tr>
+										<td><div class="inline">{{ jira.key }}</div></td>
+										<td><a class="inline" href="#{{ jira.id }}">{{ jira.summary }}</a></td>
+										<td></td>
+										<td><div class="inline">{{ jira.status|status_string }}</div></td>
+								{% endfor %}
+							</tbody>
+							<tfoot>
+								<tr>
+									<th>Issue</th>
+									<th>Summary</th>
+									<th>Description</th>
+									<th>Status</th>
+								</tr>
+							</tfoot>
+						</table>
+					{% endif %}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+<div id="sidebar">
+	<a id="logout" href="/logout/">Log Out</a>
+	<a href="/home/"><img src="{{ MEDIA_URL }}/static/images/logo_ai.gif" alt="Alexander Interactive Staging Site"  title="Alexander Interactive Staging Site" class="ai-logo" width="42" /></a>
+	{% block project_links %}
+	{% if project.links.all %}
+		<div class="contact-list" id="project-links">
+			<h3><img src="{{ MEDIA_URL }}/static/images/title_project-resources.gif" alt="Project Resources" /></h3>
+			<ul>
+				<li><a href="/client/{{ client_path }}/{{ project_path }}/">Project Home</a></li>
+				{% for link in project.links.all %}
+					<li><a onclick="window.open(this.href);return false;" href="{{ link.link }}" >{{ link.name }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+	{% if project.ai_contacts %}
+		<div class="contact-list" id="ai-contacts">
+			<h3><img src="{{ MEDIA_URL }}/static/images/title_ai-contacts.gif" alt="AI Contacts" /></h3>
+			{% for contact in project.ai_contacts %}
+				{% include "contact.html" %}
+			{% endfor %}
+		</div>
+	{% endif %}
+	{% if project.client_contacts %}
+		<div class="contact-list" id="client-contacts">
+			<h3><img src="{{ MEDIA_URL }}/static/images/title_client-contacts.gif" alt="Client Contacts" /></h3>
+			{% for contact in project.client_contacts %}
+				{% include "contact.html" %}
+			{% endfor %}
+		</div>
+	{% endif %}
+	{% include "includes/info.html" %}
+	{% endblock %}
+</div>
+
+{% if jiras %}
+	{% for jira in jiras %}
+		<div style="display:none" id="{{ jira.id }}">
+			<div class="wrapper">
+			<strong>Issue:</strong> {{ jira.key }}<br/>
+			<strong>Status:</strong> {{ jira.status|status_string }}<br/><br/>
+			<strong>Summary:</strong> {{ jira.summary }}<br/><br/>
+			<strong>Description:</strong> {{ jira.description }}<br/><br/>
+			</div>
+		</div>
+	{% endfor %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#example').dataTable( {
+				"bPaginate": false,
+				"bLengthChange": false,
+				"bFilter": true,
+				"bSort": true,
+				"bInfo": false,
+				"bAutoWidth": false,
+				"aoColumns": [null, { "bSortable": false }, { "bSearchable": false,"bVisible": false }, null]
+	
+			 } );
+		 
+		 	$("a.inline").fancybox();
+		} );
+	</script>
+{% endif %}
+{% endblock %}

@@ -52,7 +52,9 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'stager.urls'
 
-TEMPLATE_DIRS = [os.path.join(os.path.dirname(__file__), "../templates")]
+TEMPLATE_DIRS = [os.path.join(os.path.dirname(__file__), "../templates/jira"),
+				 os.path.join(os.path.dirname(__file__), "../templates/stager"), 
+				 os.path.join(os.path.dirname(__file__), "../templates")]
 
 AUTH_PROFILE_MODULE = 'stager.Client'
 
@@ -65,7 +67,8 @@ INSTALLED_APPS = (
     'stager.staging', 
     'svn_revision',
     'django_evolution',
-    'export'
+    'export',
+    'stager.jira',
 )
 
 # Stager Settings
@@ -103,3 +106,6 @@ AD_CERT_FILE='/path/to/your/cert.txt'
 AD_DEBUG=True
 AD_DEBUG_FILE='ldap.debug'
 
+JIRA_WSDL = 'https://jira.my.ai/rpc/soap/jirasoapservice-v2?wsdl' 
+JIRA_USER = 'client' 
+JIRA_PASS = 'clientpassword()' 

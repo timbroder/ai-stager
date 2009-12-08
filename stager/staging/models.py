@@ -145,7 +145,7 @@ class Category(models.Model):
     project = models.ForeignKey(Project,related_name='categories')
     ordering = models.IntegerField(default=0)
     active = models.BooleanField(default=True)
-    default = models.BooleanField(default=False, null=True)
+    default = models.NullBooleanField(default=False, null=True)
     
     def __unicode__(self):
         return '%s : %s' % (self.project.id, self.name, )
