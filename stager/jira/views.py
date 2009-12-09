@@ -28,7 +28,9 @@ def list_projects(request, client_path, project_path):
         return render_to_response('jira_list_projects.html', {'project':project, 
                                                                    'client':client,
                                                                    'jiras':jiras, 
-                                                                   'user':request.user})
+                                                                   'user':request.user,
+                                                                   'client_path': client_path,
+                                                                   'project_path': project_path})
     except Client.DoesNotExist, Project.DoesNotExist:
         raise Http404
 
@@ -65,7 +67,9 @@ def view_project(request, client_path, project_path, jira_key):
                                                                    'client':client,
                                                                    'jiras':jiras, 
                                                                    'jira_project': jira_project,
-                                                                   'user':request.user})
+                                                                   'user':request.user,
+                                                                   'client_path': client_path,
+                                                                   'project_path': project_path})
     except Client.DoesNotExist, Project.DoesNotExist:
         raise Http404
     
