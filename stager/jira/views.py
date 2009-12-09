@@ -90,7 +90,7 @@ def insert_issue(request, client_path, project_path, jira_key):
             if form.is_valid():
                 submitted = True
 
-                newissue = soap.createIssue(auth, {'project': jira_project.key, 
+                newissue = soap.service.createIssue(auth, {'project': jira_project.key, 
                                                    'type': '1', 
                                                    'description': form.cleaned_data['description'],
                                                    'summary': form.cleaned_data['summary'],
@@ -105,7 +105,7 @@ def insert_issue(request, client_path, project_path, jira_key):
                                              form.cleaned_data['attachment'].read())
     
                     b64t = base64.encodestring(uploaded.read())
-                    soap.addBase64EncodedAttachmentsToIssue(auth,
+                    soap.serviceaddBase64EncodedAttachmentsToIssue(auth,
                                                newissue['key'],
                                                [filename],
                                                [b64t])
