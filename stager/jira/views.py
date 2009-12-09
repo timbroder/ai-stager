@@ -9,8 +9,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.views.static import serve
 import re
 from stager.settings import JIRA_USER, JIRA_PASS, JIRA_WSDL
-import SOAPpy, getpass, datetime, array, base64
-from SOAPpy import Types
+import getpass, datetime, array, base64
+from suds.client import Client as SoapClient, WebFault
 from stager.jira.decorators import *
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -42,19 +42,18 @@ def view_project(request, client_path, project_path, jira_key):
         client = Client.objects.get(path=client_path)
         project = client.projects.get(path=project_path)
 
-        soap = SOAPpy.WSDL.Proxy(JIRA_WSDL)
+        soap = SoapClient(JIRA_WSDL)
         auth = request.session.get('jira_auth')
 
         jira_project = JiraProject.objects.get(key=jira_key)
-        jiras = soap.getIssuesFromFilterWithLimit(auth, "10312", 0, 999)
-        
-        for jira in jiras:
+        jiras = soap.service.getIssuesFromFilterWithLimit(auth, "10312", 0, 999)
+
+        for jira in jiras[0]:
+
             test = jira.key.split('-')
             if len(test[1]) == 1:
-                pad = "000%s" % test[1]
-            elif len(test[1]) == 2:
                 pad = "00%s" % test[1]
-            elif len(test[1]) == 3:
+            elif len(test[1]) == 2:
                 pad = "0%s" % test[1]
             else:
                 pad = test[1]
@@ -65,12 +64,12 @@ def view_project(request, client_path, project_path, jira_key):
         
         return render_to_response('jira_project.html', {'project':project, 
                                                                    'client':client,
-                                                                   'jiras':jiras, 
+                                                                   'jiras':jiras[0], 
                                                                    'jira_project': jira_project,
                                                                    'user':request.user,
                                                                    'client_path': client_path,
                                                                    'project_path': project_path})
-    except Client.DoesNotExist, Project.DoesNotExist:
+    except Project.DoesNotExist:
         raise Http404
     
 @login_required
@@ -80,7 +79,7 @@ def insert_issue(request, client_path, project_path, jira_key):
         client = Client.objects.get(path=client_path)
         project = client.projects.get(path=project_path)
 
-        soap = SOAPpy.WSDL.Proxy(JIRA_WSDL)
+        soap = SoapClient(JIRA_WSDL)
         auth = request.session.get('jira_auth')
 
         jira_project = JiraProject.objects.get(key=jira_key)
