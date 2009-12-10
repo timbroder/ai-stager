@@ -46,7 +46,7 @@ def view_project(request, client_path, project_path, jira_key):
         auth = request.session.get('jira_auth')
 
         jira_project = JiraProject.objects.get(key=jira_key)
-        jiras = soap.getIssuesFromFilterWithLimit(auth, "10312", 0, 999)
+        jiras = soap.getIssuesFromFilterWithLimit(auth, jira_project.filter_id, 0, 999)
         
         for jira in jiras:
             test = jira.key.split('-')

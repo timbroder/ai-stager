@@ -9,8 +9,14 @@
 					<li><a onclick="window.open(this.href);return false;" href="{{ link.link }}" >{{ link.name }}</a>
 					</li>
 				{% endfor %}
-				<li><a href="jira/projects" >Jira</a>
-					</li>
+				<li><a href="jira/projects" >Jira</a></li>
+			</ul>
+		</div>
+	{% else %}
+		<div class="contact-list" id="project-links">
+			<h3><img src="{{ MEDIA_URL }}/static/images/title_project-resources.gif" alt="Project Resources" /></h3>
+			<ul>
+				<li><a href="jira/projects" >Jira</a></li>
 			</ul>
 		</div>
 	{% endif %}
