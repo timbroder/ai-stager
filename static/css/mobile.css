@@ -1,0 +1,149 @@
+/***********************************************************
+layout.css
+**********************************************************/
+body {
+	font: 1.1em georgia, verdana, arial;
+	background: #bde7f6;
+	margin: 0;
+}
+img {
+	border: none;
+	display: block;
+}
+img.logo {
+	margin: 0.5em 0;
+	padding: 2% 0 0 0;
+}
+img.jack {
+	margin: 0 0 2% 0;
+}
+#container {
+	background: #bde7f6;
+	width: 98%
+}
+#wrapper {
+	background: #fff;
+	margin:1% 0;
+	padding: 1%;
+}
+p span span {
+	margin: 0 0 0 0.5em;
+}
+
+/*  header
+**********************************************************/
+	#header {
+		margin: 0 0 0.5em 0;
+		border-bottom: 5px solid #398ebc;
+	}
+	#header span, #sectionContent span {
+		font: inheret georgia, verdana, arial;
+		/*display:block;*/
+		padding: 0 0 0.5em 0;
+	}
+	#sectionContent .vcard span {display: inline;}
+	#sectionContent p.subLink span {
+		background: 0;
+		display: inline;
+		padding-left: 0;
+	}
+	#header td.address {
+		font: 0.9em georgia, verdana, arial;
+	}
+	#header p span {
+		background: none;
+		padding: 0;
+	}
+		#header span a, #sectionContent span a, #footer ul li a, .subLink a {
+			color: #614F31;
+			text-decoration: none;
+		}
+#project_nav img, #project_logo img {margin: 1% 0;}
+#project_nav select {margin: 0 0 1% 0;}
+/*  sectionContent
+**********************************************************/
+.hidden {display: none;}
+#sectionContent h1 {
+	font: bold 1.4em Verdana;
+	color: #333; 
+	margin: 0.5em 0;
+	padding: 0;
+}
+#sectionContent h2, #sectionContent h5, #sectionContent dt, .column h2 {
+	font: bold 1.0em Verdana;
+	color: #186D9B; 
+	margin: 0.5em 0;
+	padding: 0;
+}
+* h2 span {
+	font: 0.8em arial;
+	color: #808080;
+}
+	#sectionContent dt a{
+		color: #398EBC; 
+	}
+		#sectionContent ul li img {display: none;}
+	p {
+		font: 0.9em georgia, verdana, arial;
+	}
+	#sectionContent p, #sectionContent dd {
+		font: 0.9em georgia, verdana, arial;
+		margin: 0;
+		background-color: #F7F5F5; 
+		/*padding: 0.5em 0;*/
+		padding: 0.5em 0 0.5em 0.5em;
+		margin: 0;
+		width: 98%;
+	}
+	#sectionContent p.noBg {
+		background: 0;
+	}
+.contact-block {
+	margin: 0 0 1% 0;
+}
+	.contact-block .contact-name, .contact-block .contact-title, contact-block .contact-email, .contact-block .contact-address, .contact-block .contact-phone {
+		font: 0.9em Georgia, "Times New Roman", Times, serif;
+	}
+	.contact-block .contact-name {font-weight: bold;}
+/*  navigation
+**********************************************************/
+ul li span {
+	font: 0.9em georgia, verdana, arial;
+	display: block;
+}
+	.navigation p, #sectionContent .navigation p { 
+		margin: 0.5em 0;
+		padding: 0.5% 0 0 0;
+		display: block;
+		border-bottom: 1px solid #DDD7D2;
+		background: #fff;
+	}
+		.navigation p span, #sectionContent .navigation p span {
+			border-top: 1px solid #DDD7D2;
+			display: block;
+			padding: 1.5px 0 1.5px 0;
+		}
+			.navigation p span a, #sectionContent .navigation p span a {
+				color: #494949;
+				text-decoration:none;
+				display: block;
+			}
+			
+/*  footer
+**********************************************************/
+#footer {
+	/*background: url(bg.footer.gif) repeat-x left top;*/
+	border-top: 5px solid #398ebc;
+	padding: 0.5em 0 1.0em 0;
+	margin: 1% 0 0 0;
+}
+
+
+/* secion specific */
+#sectionContent p a, #sectionContent li, #sectionContent li a, .column li a {
+	color: #FF6600;
+}
+
+.service h2 a {color: #398EBC;}
+
+h3.entry-title {font-size: 0.8em;}

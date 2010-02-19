@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>				
+		<meta http-equiv="cache-control" content="public" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>{% block page_title %} {% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}/static/css/mobile.css" />
+	</head>
+	<body>
+		<!-- #container -->
+		<div id="container">
+		
+			<!-- #wrapper -->
+			<div id="wrapper">
+				<!-- #content -->
+				<div id="content" class="clear">
+
+				<!-- #subNavigation -->
+				<div id="subNavigation">
+					{% block subnav %} {% endblock %}
+				</div>
+				<!-- /#subNavigation -->
+				
+					
+					<!-- #mainContent -->
+					<div id="mainContent">
+					
+						<!-- #sectionContent -->
+						<div id="sectionContent" class="clear">
+							{% block mobile_content %}							
+							{% endblock %}
+						</div>
+						<!-- /#sectionContent -->
+						
+						
+					</div>
+					<!-- /#mainContent -->
+					
+				</div>
+				<!-- /#content -->
+			</div>
+			<!-- /#wrapper -->
+		</div>
+		<!-- /#container -->
+	</body>
+</html>
