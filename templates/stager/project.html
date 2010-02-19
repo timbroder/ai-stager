@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends check %}
 
 {% block page_title %} 
 	{{ project.client.name }} : {{ project.name }}
@@ -15,32 +15,38 @@
 {% endblock %}
 
 {% block main_content %}
-<div id="main">
+	{% block mobile_content %}
+	<div id="main">
 	<div id="content-l">
 		{% include "includes/header.html" %}
 		<div id="maincontent">
 			{% if project.categories %}
-				<ul class="cat-buttons clear">
+				{% if not mobify %}<ul class="cat-buttons clear">{% else %}<p class="noBg">{% endif %}
+				
 					{% for category in project.categories.all %}
 						{% if category.active %}
-						<li><a id="#{{ category.name|slugify }}_tab"
+						{% if not mobify %}<li>{% else %}<span>{% endif %}<a id="#{{ category.name|slugify }}_tab"
 							   class="tab"
 							   href="#{{ category.name|slugify }}_category"
 							   title="{{ category.name }}">{{ category.name }}
 							</a>
-						</li>
+						{% if not mobify %}</li>{% else %} |</span>{% endif %}
 						{% else %}
 							{% if user.is_staff %}
-								<li><a id="#{{ category.name|slugify }}_tab"
+								{% if not mobify %}<li>{% else %}<span>{% endif %}<a id="#{{ category.name|slugify }}_tab"
 								   class="tab inactive"
 								   href="#{{ category.name|slugify }}_category"
 								   title="{{ category.name }}">{{ category.name }}
 								</a>
-							</li>
+							{% if not mobify %}</li>{% else %}</span>{% endif %}
+
 							{% endif %}
 						{% endif %}
 					{% endfor %}
-				</ul>
+				{% if not mobify %}</ul>{% else %}
+				<span>{% if mobify %}<a id="logout" href="/logout/">Log Out</a>
+	<!--<a href="/home/"><img src="{{ MEDIA_URL }}/static/images/logo_ai.gif" alt="Alexander Interactive Staging Site" title="Alexander Interactive Staging Site" class="ai-logo" width="42" /></a>-->{% endif %}</span>
+				</p>{% endif %}
 
 					{% for rollup in project.category_rollups %}
 						{% if rollup.sections %}
@@ -185,10 +191,10 @@
 </div>
 
 <div id="sidebar">
-	<a id="logout" href="/logout/">Log Out</a>
+	{% if not mobify %}<a id="logout" href="/logout/">Log Out</a>
 	<a href="/home/"><img src="{{ MEDIA_URL }}/static/images/logo_ai.gif"
 						  alt="Alexander Interactive Staging Site"
-						  title="Alexander Interactive Staging Site" class="ai-logo" width="42" /></a>
+						  title="Alexander Interactive Staging Site" class="ai-logo" width="42" /></a>{% endif %}
 	{% block project_links %}
 	{% if project.links.all %}
 		<div class="contact-list" id="project-links">
@@ -221,4 +227,5 @@
 	{% endif %}
 	{% include "includes/info.html" %}
 </div>
+	{% endblock %}
 {% endblock %}

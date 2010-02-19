@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends check %}
 
 {% block page_title %} 
 	Clients : Projects
@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block main_content %}
+	{% block mobile_content %}
 
 <div id="main" class="clear">
 	<div id="content-1">
@@ -24,14 +25,16 @@
 			{% for client in clients %}
 			<div class="client">
 				<div class="head">
-					<h2><a href="javascript:void(0);" title="{{ client.name }}">{{ client.name }}</a></h2>
-					<p class="pm">
+					<h2>{% if not mobify %}<a href="javascript:void(0);" title="{{ client.name }}">{% endif %}{{ client.name }}{% if not mobify %}</a>{% endif %}{% if not mobify %}</h2>
+					<p class="pm">{% else %}<span> - {% endif %}
 						{{ client.contact.first_name }} {{ client.contact.last_name }}
-					</p>
+					{% if not mobify %}</p>{% else %}</span></h2>{% endif %}
+					
+					
 				</div>
 				
 				{% if client.projects %}
-				<div class="projects" style="display:none;">
+				<div class="projects" {% if not mobify %}style="display:none;"{% endif %}>
 					<ul>
 						{% for project in client.projects.all %}
 						<li>
@@ -54,4 +57,5 @@
 	<span id="logout"><span>Welcome </span><a href="/admin/" target="_new">{{user.username}}</a>  <span>|</span> <a href="/logout/">Log Out</a></span>
 </div>
 
+	{% endblock %}
 {% endblock %}

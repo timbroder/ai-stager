@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends check %}
 
 {% block section_css %}
 		<link href="{{ MEDIA_URL }}/static/css/slides.css" rel="stylesheet" type="text/css" />
@@ -20,6 +20,7 @@
 		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/hoverintent.js"></script>
 		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/slide.js"></script>
 {% endblock %}
+{% block mobile_content %} 
 
 {% block page_title %} 
 	{% with comp.project as project %}
@@ -50,4 +51,5 @@
 	{% else %}
 		<div class="big">There are no slides for this comp yet.</div>
 	{% endif %}
+{% endblock %}
 {% endblock %}
