@@ -26,7 +26,7 @@ def check_mobile(request):
 def mobify(request):
 	#if request.META.get('HTTP_HOST').find('m.') == 0:
 	#if request.META.get('QUERY_STRING') == 'mobile':
-	request.device.get('mobileDevice',None) or request.META.get('HTTP_HOST').find('m.') == 0:
+	if request.device.get('mobileDevice',None) or request.META.get('HTTP_HOST').find('m.') == 0:
 		return request.device
 		#return mobify
 
