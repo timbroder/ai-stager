@@ -65,7 +65,7 @@ def login(request):
     else:
         redirect = request.GET['next']
     
-    return render_to_response('login.html', {'message':error_message, 'redirect':redirect})
+    return render_to_response('login.html', {'message':error_message, 'redirect':redirect, 'check':check_mobile(request),'mobify':mobify(request)})
 
 def logout(request):
     """

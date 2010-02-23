@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends check %}
 
 {% block page_title %} 
 	Login
@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block main_content %}
+	{% block mobile_content %}
 	<div id="loginbox">
 		<div id="logincontent">
 			<div id="login-fields">
@@ -43,4 +44,5 @@
 			</div>
 		</div>
 	</div>
+	{% endblock %}
 {% endblock %}
