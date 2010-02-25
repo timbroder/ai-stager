@@ -10,6 +10,11 @@ img {
 	border: none;
 	display: block;
 }
+fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
 img.logo {
 	margin: 0.5em 0;
 	padding: 2% 0 0 0;

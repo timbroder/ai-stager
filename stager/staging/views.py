@@ -24,9 +24,9 @@ def check_mobile(request):
 	return pagey
 
 def mobify(request):
-	if request.META.get('HTTP_HOST').find('m.') == 0:
+	#if request.META.get('HTTP_HOST').find('m.') == 0:
 	#if request.META.get('QUERY_STRING') == 'mobile':
-	#if request.device.get('mobileDevice',None) or request.META.get('HTTP_HOST').find('m.') == 0:
+	if request.device.get('mobileDevice',None) or request.META.get('HTTP_HOST').find('m.') == 0:
 		#return request.device
 		return mobify
 
