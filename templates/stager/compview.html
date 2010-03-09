@@ -6,13 +6,13 @@
 		<style type="text/css">
 			
 			body {
-				background: {% if slide.background %} transparent  {% endif %} url('{{MEDIA_URL}}/static/{{slide.background}}') repeat-x left top;
+				background: {% if slide.background %} transparent  {% endif %} url('{{MEDIA_URL}}/static/{{slide.background}}') repeat-x left top no-repeat;
 				background-color: {{ slide.background_color }};
 			}
 			#mainwrap img { margin: 0 auto;  {% if slide.alignment %}float: {{slide.alignment }};{% endif %}}
 			#slide {
 				
-				{% if slide.alignment %}background-position: top {{slide.alignment }};{% else %}background-position: top center;{% endif %}
+				{% if slide.alignment %}background-position: top {{slide.alignment }};{% else %}background-position: top center;{% endif %} no-repeat;
 			}
 		</style>
 {% endblock %}
@@ -37,8 +37,8 @@
 				<h1>{{ slide.name }}</h1>
 			</div>
 			<div id="comp_nav">
-				<a href="{{prev}}?m=nav" id="prev">Previous Comp</a>
-				<a href="{{next}}?m=nav" id="next">Next Comp</a>
+				{%if mobify%}&laquo;{%endif%}{%if mobify%}&laquo;{%endif%}<a href="{{prev}}?m=nav" id="prev">Previous Comp</a>
+				 {%if mobify%}|{%endif%} <a href="{{next}}?m=nav" id="next">Next Comp</a>{%if mobify%}&raquo;{%endif%}
 			</div>
 		</div>
 	</div>

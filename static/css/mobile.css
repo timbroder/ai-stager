@@ -65,6 +65,8 @@ p span span {
 		}
 #project_nav img, #project_logo img {margin: 1% 0;}
 #project_nav select {margin: 0 0 1% 0;}
+
+#nav {margin: 1% 0;}
 /*  sectionContent
 **********************************************************/
 .hidden {display: none;}
@@ -145,7 +147,7 @@ ul li span {
 
 
 /* secion specific */
-#sectionContent p a, #sectionContent li, #sectionContent li a, .column li a {
+#sectionContent p a, #sectionContent li, #sectionContent li a, .column li a, #nav a {
 	color: #FF6600;
 }
 
