@@ -1,6 +1,7 @@
 {% extends check %}
-
+{% load thumbnail %}
 {% block section_css %}
+		
 		<link href="{{ MEDIA_URL }}/static/css/slides.css" rel="stylesheet" type="text/css" />
 		<style type="text/css">
 			
@@ -46,7 +47,9 @@
 {% block main_content %}
 	{% if slide %}
 		<div id="slide">
-			<a href="{{next}}"><img src="{{MEDIA_URL}}/static/{{slide.image}}" /></a>
+			{% if mobify %}
+			<a href="{{next}}"><img src='{% thumbnail slide.background 240x99999 %}' /></a>
+			{% endif %}
 		</div>
 	{% else %}
 		<div class="big">There are no slides for this comp yet.</div>

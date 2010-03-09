@@ -34,6 +34,8 @@ MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)),
                 "../" + MEDIA_PREFIX)
 BASE_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), "../")
 
+THUMBNAIL_SUBDIR = 'images'
+
 ADMIN_MEDIA_PREFIX = '/media/'
 SECRET_KEY = '+3&#_r^#t8jr%h6(6ec(f6am!0lu%y%&*29t_z-#+kfv9ofg@l'
 
@@ -48,6 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
+	'bloom.device.middleware.DeviceDetectMiddleware',
 )
 
 ROOT_URLCONF = 'stager.urls'
@@ -69,6 +72,8 @@ INSTALLED_APPS = (
     'django_evolution',
     'export',
     'stager.jira',
+	'bloom.device',
+	'sorl.thumbnail',
 )
 
 # Stager Settings
