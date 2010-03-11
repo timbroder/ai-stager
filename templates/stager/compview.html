@@ -6,7 +6,7 @@
 		<style type="text/css">
 			
 			body {
-				background: {% if slide.background %} transparent  {% endif %} url('{{MEDIA_URL}}/static/{{slide.background}}') repeat-x left top no-repeat;
+				background: {% if slide.background %} transparent  {% endif %} url('{{MEDIA_URL}}/static/{{slide.background}}') repeat-x left top;
 				background-color: {{ slide.background_color }};
 			}
 			#mainwrap img { margin: 0 auto;  {% if slide.alignment %}float: {{slide.alignment }};{% endif %}}
@@ -48,7 +48,9 @@
 	{% if slide %}
 		<div id="slide">
 			{% if mobify %}
-			<a href="{{next}}"><img src='{% thumbnail slide.background 320x99999 %}' /></a>
+			<a href="{{next}}"><img src='{% thumbnail slide.image 320x99999 %}' /></a>
+			{%else%}
+			<a href="{{next}}"><img src='{{MEDIA_URL}}/static/{{ slide.image }}' /></a>
 			{% endif %}
 		</div>
 	{% else %}
