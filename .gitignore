@@ -1,2 +1,12 @@
 stager/settings.py
 *.pyc
+static/upload/*
+static/images/mike.egg*
+static/bocci
+static/bocci/*
+static/bocci/images
+static/bocci/images/mike.eggs_jpg_100x100_q85.jpg
+static/upload/airamerica/redesign/comps/
+static/upload/airamerica/redesign/comps/*
+static/upload/airamerica/redesign/comps/elvis.jpg
+static/upload/airamerica/redesign/comps/images
