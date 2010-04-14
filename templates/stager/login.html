@@ -17,6 +17,9 @@
 	<div id="loginbox">
 		<div id="logincontent">
 			<div id="login-fields">
+			{% if mobify %}
+			<img src="{{ MEDIA_URL }}/static/images/logo.mobile.gif" />
+			{% endif %}
 				<form action="/login/" method="post" id="login_form">
 					<fieldset>
 						<div class="fieldline clear">
@@ -31,7 +34,7 @@
 
 						<div class="fieldline indent clear">
 							<input type="checkbox" class="check" name="remember" id="remember" />
-							<label for="remember">Remember me next time</label>
+							<label for="remember" class="remember">Remember me next time</label>
 						</div>
 
 						<div class="fieldline indent clear">

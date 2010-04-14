@@ -1,4 +1,4 @@
-{% extends "stager/project.html" %}
+{% extends 'stager/project.html' %}
 {% load has_jira %}
 	{% block project_links %}	
 	
@@ -16,13 +16,16 @@
 			</ul>
 		</div>
 	{% else %}
-		{% if client.path|has_jira:project.path %}
-		<div class="contact-list" id="project-links">
-			<h3><img src="{{ MEDIA_URL }}/static/images/title_project-resources.gif" alt="Project Resources" /></h3>
-			<ul>
-				<li><a href="jira/projects" >Jira</a></li>
-			</ul>
-		</div>
+		{% if not mobify %}
+			{% if client.path|has_jira:project.path %}
+			<div class="contact-list" id="project-links">
+				<h3><img src="{{ MEDIA_URL }}/static/images/title_project-resources.gif" alt="Project Resources" /></h3>
+				<ul>
+					<li><a href="jira/projects" >Jira</a></li>
+				</ul>
+			</div>
+			{% endif %}
 		{% endif %}
 	{% endif %}
 	{% endblock %}
+	
