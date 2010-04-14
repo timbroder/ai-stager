@@ -45,7 +45,12 @@ p span span {
 		font: inheret georgia, verdana, arial;
 		/*display:block;*/
 		padding: 0 0 0.5em 0;
+		color: #999;
 	}
+	#sectionContent p.noBg span {
+		color: #ddd;
+	}
+	
 	#sectionContent .vcard span {display: inline;}
 	#sectionContent p.subLink span {
 		background: 0;
@@ -71,20 +76,23 @@ p span span {
 **********************************************************/
 .hidden {display: none;}
 #sectionContent h1 {
-	font: bold 1.4em Verdana;
+	font: bold 1.4em Georgia, "Times New Roman", Times, serif;
 	color: #333; 
 	margin: 0.5em 0;
 	padding: 0;
 }
 #sectionContent h2, #sectionContent h5, #sectionContent dt, .column h2 {
-	font: bold 1.0em Verdana;
+	font: bold 1.0em georgia, verdana, arial;
 	color: #186D9B; 
 	margin: 0.5em 0;
 	padding: 0;
 }
+.leed h2 {
+	border-bottom: 1px solid #ddd;
+}
 * h2 span {
-	font: 0.8em arial;
-	color: #808080;
+	font: italic 0.8em arial;
+	color: #999;
 }
 	#sectionContent dt a{
 		color: #398EBC; 
@@ -112,6 +120,30 @@ p span span {
 		font: 0.9em Georgia, "Times New Roman", Times, serif;
 	}
 	.contact-block .contact-name {font-weight: bold;}
+.client {
+	border-bottom: 1px solid #eee;
+}
+.client ul li {
+	margin: 0 0 0.4em 0;
+}
+.date {
+	font-size: 0.9em;
+}
+.contact-link {
+	font-size: 0.9em;
+	padding: 0.5em 0 0 0;
+}
+	.contact-link a {
+		text-decoration: none;
+	}
+	.contact-name {
+		color: #999;
+		margin: 0 0 0.5em 0;
+	}
+#slide {
+	width: 320px;
+	margin: 0 auto;
+}
 /*  navigation
 **********************************************************/
 ul li span {
@@ -136,6 +168,24 @@ ul li span {
 				display: block;
 			}
 			
+/*  login
+**********************************************************/
+#login-fields {
+	/*width: 15em;*/
+	height: 7em;
+	padding: 0.5em;
+	background-color: #F9F9F9;
+	border: 1px solid #DDD7D2;
+}
+label {
+	color: #186DA7;
+	font-size: .9em;
+}
+label.remember {
+	color: #333;
+}
+
+
 /*  footer
 **********************************************************/
 #footer {
@@ -149,6 +199,13 @@ ul li span {
 /* secion specific */
 #sectionContent p a, #sectionContent li, #sectionContent li a, .column li a, #nav a {
 	color: #FF6600;
+}
+#comp_nav {
+	font-size: 0.9em;
+	color: #999;
+	width: 320px;
+	margin: 0 auto;
+	text-align: center;
 }
 
 .service h2 a {color: #398EBC;}
