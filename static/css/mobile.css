@@ -215,6 +215,9 @@ label.remember {
 
 
 /* secion specific */
+#sidebar {
+	padding:0.5em 0;	
+}
 #projectdesc {
 	font-size: 0.9em;
 	font-weight: bold;
