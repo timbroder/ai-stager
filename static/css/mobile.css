@@ -126,7 +126,7 @@ p span span {
 	border-top: 2px solid #ddd;*/
 }
 .contact-block {
-	margin: 0 0 1% 0;
+	margin: 0 0 1.0em 0;
 }
 	.contact-block .contact-name, .contact-block .contact-title, contact-block .contact-email, .contact-block .contact-address, .contact-block .contact-phone {
 		font: 0.8em Georgia, "Times New Roman", Times, serif;
