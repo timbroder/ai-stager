@@ -122,8 +122,8 @@ p span span {
 		background: 0;
 	}
 .contact-list {
-	margin: 0.5em 0 0 0;
-	border-top: 2px solid #ddd;
+	/*margin: 0.5em 0 0 0;
+	border-top: 2px solid #ddd;*/
 }
 .contact-block {
 	margin: 0 0 1% 0;
@@ -234,8 +234,15 @@ label.remember {
 	color: #4B4B4B;
 }
 
-#sidebar {font-size: 0.9em;}
-
+#sidebar {
+	font-size: 0.9em;
+	margin: 0.5em 0 0 0;
+	border-top: 2px solid #ddd;
+}
+.welcomeLogout#sidebar {
+	margin: 0;
+	border: none;
+}
 #sectionContent p a, #sectionContent li a, .column li a {
 	color: #FF6600;
 }
