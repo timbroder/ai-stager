@@ -18,11 +18,6 @@
 	<div id="content-1">
 		<a href="/home/"><img src="{{ MEDIA_URL}}/static/images/logo_lovin_oven.gif" /></a>
 	</div>
-		{% if mobify %}
-		<div id="sidebar" class="client">
-			<span id="logout"><span>Welcome </span><strong>{{user.username}}</strong> <span>|</span> <a href="/logout/">Log Out</a></span>
-		</div>
-		{% endif %}
 	<div id="maincontent">
 		<h1 class="clients">Clients</h1>
 		<div class="content">
@@ -58,7 +53,7 @@
 	</div>
 </div>
 
-<div id="sidebar">
+<div id="sidebar" class="welcomeLogout">
 	<span id="logout"><span>Welcome </span>{% if mobify %}<strong>{% else %}<a href="/admin/" target="_new">{% endif %}{{user.username}}{% if mobify %}</strong>{% else %}</a>{% endif %}  <span>|</span> <a href="/logout/">Log Out</a></span>
 </div>
 

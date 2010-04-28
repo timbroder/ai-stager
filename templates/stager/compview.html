@@ -23,16 +23,16 @@
 {% endblock %}
 {% block mobile_content %} 
 
-{% block page_title %} 
+{% if mobify %}<div id="projectdesc">{% endif %}{% block page_title %} 
 	{% with comp.project as project %}
-	<div id="projectdesc">{{ project.client.name }} : {{ project.name }}</div>
+	{{ project.client.name }} : {{ project.name }}
 	{% endwith %}
-{% endblock %}
+{% endblock %}{% if mobify %}</div>{% endif %}
 
 {% block bar_content %} 
 	<div id="nav">
 		<div class="wrap">
-			<div id="comp_info" class="orange">
+			<div id="comp_info" class="">
 				<a href="{{returnlink}}">{% with comp.project as project %}{{ project.client.name }}{% endwith %}</a>
 				<h1>{{ slide.name }}</h1>
 			</div>
