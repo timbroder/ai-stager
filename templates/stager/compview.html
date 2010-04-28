@@ -25,14 +25,14 @@
 
 {% block page_title %} 
 	{% with comp.project as project %}
-	{{ project.client.name }} : {{ project.name }}
+	<div id="projectdesc">{{ project.client.name }} : {{ project.name }}</div>
 	{% endwith %}
 {% endblock %}
 
 {% block bar_content %} 
 	<div id="nav">
 		<div class="wrap">
-			<div id="comp_info">
+			<div id="comp_info" class="orange">
 				<a href="{{returnlink}}">{% with comp.project as project %}{{ project.client.name }}{% endwith %}</a>
 				<h1>{{ slide.name }}</h1>
 			</div>
@@ -53,6 +53,12 @@
 			<a href="{{next}}"><img src='{{MEDIA_URL}}/static/{{ slide.image }}' /></a>
 			{% endif %}
 		</div>
+			{% if mobify %}
+			<div id="comp_nav">
+				&laquo;<a href="{{prev}}?m=nav" id="prev">Previous Comp</a>
+				 | <a href="{{next}}?m=nav" id="next">Next Comp</a>&raquo;
+			</div>
+			{% endif %}
 	{% else %}
 		<div class="big">There are no slides for this comp yet.</div>
 	{% endif %}

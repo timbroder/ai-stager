@@ -18,17 +18,17 @@
 		<div id="logincontent">
 			<div id="login-fields">
 			{% if mobify %}
-			<img src="{{ MEDIA_URL }}/static/images/logo.mobile.gif" />
+			<img src="{{ MEDIA_URL }}/static/images/logo.mobile.new.gif" />
 			{% endif %}
 				<form action="/login/" method="post" id="login_form">
 					<fieldset>
 						<div class="fieldline clear">
-							<label for="username">Username:</label>
+							<label for="username" class="set">Username:</label>
 							<input type="text" name="username" id="username" />
 						</div>
 
 						<div class="fieldline clear">
-							<label for="password">Password:</label>
+							<label for="password" class="set">Password:</label>
 							<input type="password" name="password" id="password" />
 						</div>
 
