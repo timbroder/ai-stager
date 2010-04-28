@@ -1,5 +1,5 @@
 /***********************************************************
-layout.css
+mobile.css
 **********************************************************/
 body {
 	font: 1.1em georgia, verdana, arial;
@@ -49,6 +49,7 @@ p span span {
 	}
 	#sectionContent p.noBg span {
 		color: #ddd;
+		font-style: normal;
 	}
 	
 	#sectionContent .vcard span {display: inline;}
@@ -64,7 +65,7 @@ p span span {
 		background: none;
 		padding: 0;
 	}
-		#header span a, #sectionContent span a, #footer ul li a, .subLink a {
+		#header span a, #sectionContent span a, #footer ul li a {
 			color: #614F31;
 			text-decoration: none;
 		}
@@ -87,8 +88,9 @@ p span span {
 	margin: 0.5em 0;
 	padding: 0;
 }
-.leed h2 {
+#sectionContent .leed h2 {
 	border-bottom: 1px solid #ddd;
+	padding: 0 0 0.5em 0;
 }
 * h2 span {
 	font: italic 0.8em arial;
@@ -97,15 +99,20 @@ p span span {
 	#sectionContent dt a{
 		color: #398EBC; 
 	}
+		#sectionContent ul li {
+			color: #f60;
+			font-size: 0.9em;
+		}
 		#sectionContent ul li img {display: none;}
 	p {
 		font: 0.9em georgia, verdana, arial;
 	}
 	#sectionContent p, #sectionContent dd {
-		font: 0.9em georgia, verdana, arial;
+		font: italic 0.9em georgia, verdana, arial;
+		color: #666;
 		margin: 0;
-		background-color: #F7F5F5; 
-		/*padding: 0.5em 0;*/
+		/*background-color: #F7F5F5; 
+		padding: 0.5em 0;*/
 		padding: 0.5em 0 0.5em 0.5em;
 		margin: 0;
 		width: 98%;
@@ -117,9 +124,10 @@ p span span {
 	margin: 0 0 1% 0;
 }
 	.contact-block .contact-name, .contact-block .contact-title, contact-block .contact-email, .contact-block .contact-address, .contact-block .contact-phone {
-		font: 0.9em Georgia, "Times New Roman", Times, serif;
+		font: 0.8em Georgia, "Times New Roman", Times, serif;
 	}
 	.contact-block .contact-name {font-weight: bold;}
+.contact-list h3 {margin-bottom: 0.5em;}
 .client {
 	border-bottom: 1px solid #eee;
 }
@@ -130,15 +138,17 @@ p span span {
 	font-size: 0.9em;
 }
 .contact-link {
-	font-size: 0.9em;
 	padding: 0.5em 0 0 0;
 }
 	.contact-link a {
-		text-decoration: none;
+		color: #333;
+	}
+	.contact-email a {
+		font-size: 0.8em;
+		color: #333;
 	}
 	.contact-name {
 		color: #999;
-		margin: 0 0 0.5em 0;
 	}
 #slide {
 	width: 320px;
@@ -166,23 +176,31 @@ ul li span {
 				color: #494949;
 				text-decoration:none;
 				display: block;
-			}
+			}i
 			
 /*  login
 **********************************************************/
 #login-fields {
 	/*width: 15em;*/
-	height: 7em;
+	height: 10em;
 	padding: 0.5em;
 	background-color: #F9F9F9;
 	border: 1px solid #DDD7D2;
+}
+.fieldline {
+	padding: 0.5em 0 0 0;
 }
 label {
 	color: #186DA7;
 	font-size: .9em;
 }
+label.set {
+	width: 5.5em;
+	float: left;
+}
 label.remember {
 	color: #333;
+	font-size: 0.8em;
 }
 
 
@@ -197,9 +215,19 @@ label.remember {
 
 
 /* secion specific */
-#sectionContent p a, #sectionContent li, #sectionContent li a, .column li a, #nav a {
+#projectdesc {
+	font-size: 0.9em;
+	font-weight: bold;
+}
+
+#sidebar {font-size: 0.9em;}
+
+#sectionContent p a, #sectionContent li a, .column li a {
 	color: #FF6600;
 }
+#sectionContent p.noBg a {color:#0000FF;}
+#sectionContent #comp_info h1 {font-size: 0.9em;}
+#comp_info a {color: #f60;}
 #comp_nav {
 	font-size: 0.9em;
 	color: #999;
