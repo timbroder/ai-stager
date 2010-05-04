@@ -28,10 +28,12 @@
 					
 						<!-- #sectionContent -->
 						<div id="sectionContent" class="clear">
+						{% if user %}
 						{% if mobify %}
 							<div id="sidebar" class="welcomeLogout">
 								<span id="logout"><span>Welcome </span><strong>{{user.username}}</strong> <span>|</span> <a href="/logout/">Log Out</a></span>
 							</div>
+						{% endif %}
 						{% endif %}
 							{% block mobile_content %}							
 							{% endblock %}
