@@ -3,6 +3,12 @@
 	{{ project.client.name }} : {{ project.name }}
 {% endblock %}
 
+{% block cufon %}
+	Cufon.replace('#project_nav .header', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+	Cufon.replace('#sidebar h3', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+	Cufon.replace('#maincontent .cat-buttons li', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+{% endblock %}
+
 {% block section_js %}
 		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/dropdown.js"></script>
 		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/staging.js"></script>
@@ -12,47 +18,77 @@
 	{% endif %}
 {% endblock %}
 
+{% block title %}{{ client.name }} {% endblock %}
+{% block description %}{{ project.name }} {% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block utility %}
+	{% include "includes/nav_utility.html" %}
+{% endblock %}
+
+{% block header_extra %}
+	{% include "includes/header.html" %}
+{% endblock %}
+
 {% block main_content %}
 	{% block mobile_content %}
 	<div id="main">
-	<div id="content-l">
-		{% include "includes/header.html" %}
+		
 		<div id="maincontent">
 			{% if project.categories %}
-				{% if not mobify %}<ul class="cat-buttons clear">{% else %}<p class="noBg">{% endif %}
-				
+				{% if not mobify %}<div class="subnav"><ul class="cat-buttons clear">{% else %}
+					<p class="noBg">{% endif %}
 						{% if mobify %}<span><a href="/home/">&laquo; Home</a></span>{%endif%}
-					{% for category in project.categories.all %}
-						{% if category.active %}
-						{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="#{{ category.name|slugify }}_tab"
-							   class="tab"
-							   href="#{{ category.name|slugify }}_category"
-							   title="{{ category.name }}">{{ category.name }}
-							</a>
-						{% if not mobify %}</li>{% else %}</span>{% endif %}
-						{% else %}
-							{% if user.is_staff %}
-								{% if not mobify %}<li>{% else %}<span>{% endif %}<a id="#{{ category.name|slugify }}_tab"
-								   class="tab inactive"
-								   href="#{{ category.name|slugify }}_category"
-								   title="{{ category.name }}">{{ category.name }}
+						{% for category in project.categories.all %}
+							{% if category.active %}
+								{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="{{ category.name|slugify }}_tab"
+									class="tab"
+							   		href="#{{ category.name|slugify }}_category"
+							   		title="{{ category.name }}">{{ category.name }}
 								</a>
 							{% if not mobify %}</li>{% else %}</span>{% endif %}
-
+								{% else %}
+									{% if user.is_staff %}
+										{% if not mobify %}<li>{% else %}<span>{% endif %}<a id="{{ category.name|slugify }}_tab"
+								   			class="tab inactive"
+								   			href="#{{ category.name|slugify }}_category"
+								   			title="{{ category.name }}">{{ category.name }}
+										</a>
+									{% if not mobify %}</li>{% else %}</span>{% endif %}
+								{% endif %}
 							{% endif %}
-						{% endif %}
-					{% endfor %}
-				{% if not mobify %}</ul>{% else %}
-				
-				</p>{% endif %}
-
+						{% endfor %}
+						{% if not mobify %}</ul></div>{% else %}
+					</p>{% endif %}
+					
 					{% for rollup in project.category_rollups %}
 						{% if rollup.sections %}
 						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">
+							<div class="filter">
+								<h3>Jump to</h3>
+								<div class="dropdown">
+									<select>
+										<option value="">Select set</option>
+										<option value="set1">Set 1</option>
+										<option value="set2">Set 2</option>
+										<option value="set3">Set 3</option>
+										<option value="set4">Set 4</option>
+										<option value="set5">Set 5</option>									
+									</select>
+								</div>
+								<h3>View by</h3>
+								<div class="views">
+									<a href="#" class="list_view">List</a>
+									<a href="#" class="grid_view">Grid</a>
+								</div>
+								<h3 class="approved">Approved Design</h3>
+							</div>
+							
 							{% for section in rollup.sections %}
 							<div class="contentblock section">
 
-								<div class="leed clear">
+								<div class="lead clear">
 									<h2>{{ section.name }}</h2>
 									{% if section.date %}
 									<div class="date">
@@ -64,6 +100,43 @@
 								{% if section.description %}
 								<p class="pm-notes">{{ section.description }}</p>
 								{% endif %}
+								
+								<div class="grid" class="clear">
+									<div class="clear">
+										<div class="thumbs">
+											<h2>New Pages</h2>
+											<div class="thumb">
+												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
+												<p class="approved">Reprints</p>
+											</div>
+											<div class="thumb">
+												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
+												<p>Next Month's Stories</p>
+											</div>
+											<div class="thumb last">
+												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
+												<p>About Us</p>
+											</div>
+										</div>
+									</div>
+									<div class="clear">
+										<div class="thumbs">
+											<h2>Graphs</h2>
+											<div class="thumb">
+												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
+												<p>Graph Example #1 - Area</p>
+											</div>
+											<div class="thumb">
+												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
+												<p>Graph Example #2 - Area</p>
+											</div>
+											<div class="thumb last">
+												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
+												<p>Graph Example #3 - Area</p>
+											</div>
+										</div>
+									</div>
+								</div>
 
 								{% if section.links.all %}
 									<ul class="links">
@@ -87,7 +160,7 @@
 
 								{% if section.subsections %}
 									{% for subsection in section.subsections.all %}
-										<p class="pm-subcat">{{ subsection.name }}</p>
+										<p class="pm-subcat">{{ subsection.name }}:</p>
 										{% if subsection.description %}<p>{{ subsection.description }}</p>{% endif %}
 										{% if subsection.links.all %}
 											<ul class="links">
@@ -185,22 +258,18 @@
 			</div>
 		</div>
 		-->
-	</div>
+
 </div>
 
 <div id="sidebar">
-	{% if not mobify %}<a id="logout" href="/logout/">Log Out</a>
-	<a href="/home/"><img src="{{ MEDIA_URL }}/static/images/logo_ai.gif"
-						  alt="Alexander Interactive Staging Site"
-						  title="Alexander Interactive Staging Site" class="ai-logo" width="42" /></a>{% endif %}
+
 	{% block project_links %}
 	{% if project.links.all %}
 		<div class="contact-list" id="project-links">
-			<h3><img src="{{ MEDIA_URL }}/static/images/title_project-resources.gif" alt="Project Resources" /></h3>
+			<h3>Project Resources</h3>
 			<ul>
 				{% for link in project.links.all %}
-					<li><a onclick="window.open(this.href);return false;" href="{{ link.link }}" >{{ link.name }}</a>
-					</li>
+					<li class="{{ link.name }}"><a onclick="window.open(this.href);return false;" href="{{ link.link }}">{{ link.name }}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
@@ -209,7 +278,7 @@
 
 	{% if project.ai_contacts %}
 		<div class="contact-list" id="ai-contacts">
-			<h3><img src="{{ MEDIA_URL }}/static/images/title_ai-contacts.gif" alt="AI Contacts" /></h3>
+			<h3>A<span>i</span> Contacts</h3>
 			{% for contact in project.ai_contacts %}
 				{% include "contact.html" %}
 			{% endfor %}
@@ -217,7 +286,7 @@
 	{% endif %}
 	{% if project.client_contacts %}
 		<div class="contact-list" id="client-contacts">
-			<h3><img src="{{ MEDIA_URL }}/static/images/title_client-contacts.gif" alt="Client Contacts" /></h3>
+			<h3>Client Contacts</h3>
 			{% for contact in project.client_contacts %}
 				{% include "contact.html" %}
 			{% endfor %}

@@ -8,7 +8,7 @@ $(function(){
 				$(this).removeClass("active");
 			else
 				$(this).addClass("active");
-			projects.slideToggle("normal");
+			projects.slideToggle("fast");
             return false;
 		});
 	});

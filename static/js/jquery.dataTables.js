@@ -876,7 +876,7 @@
 				"sInfoEmpty": "Showing 0 to 0 of 0 entries",
 				"sInfoFiltered": "(filtered from _MAX_ total entries)",
 				"sInfoPostFix": "",
-				"sSearch": "Search:",
+				"sSearch": "<span>Search:</span>",
 				"sUrl": "",
 				"oPaginate": {
 					"sFirst":    "First",

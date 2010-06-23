@@ -39,7 +39,7 @@ class Client(models.Model):
     A client.
     """
     name = models.CharField(max_length=100)
-    active = models.BooleanField(default=True)
+    active = models.NullBooleanField(default=True)
     path = models.CharField('URL fragment', 
         help_text='<a href="' + settings.BASE_URL + 'url_fragment/" \
                    target="_new" id="url_fragment">' + settings.BASE_URL + 'url_fragment/</a>', max_length=100, unique=True)
@@ -71,7 +71,7 @@ class Client(models.Model):
 class Container(models.Model):
     name = models.CharField(blank=False, max_length=100)
     description = models.TextField(blank=True)
-    active = models.BooleanField(default=True)
+    active = models.NullBooleanField(default=True)
     
     def __unicode__(self):
         return self.name
@@ -127,8 +127,8 @@ class Contact(models.Model):
     title = models.CharField(blank=True, max_length=100)
     email = models.EmailField()
     projects = models.ManyToManyField(Project,related_name='contacts')
-    active = models.BooleanField(default=True)
-    ai_staff = models.BooleanField()
+    active = models.NullBooleanField(default=True)
+    ai_staff = models.NullBooleanField()
     ordering = models.IntegerField(default=0)
 
     def __unicode__(self):
@@ -144,8 +144,8 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     project = models.ForeignKey(Project,related_name='categories')
     ordering = models.IntegerField(default=0)
-    active = models.BooleanField(default=True)
-    default = models.BooleanField(default=False, null=True)
+    active = models.NullBooleanField(default=True)
+    default = models.NullBooleanField(default=False, null=True)
     
     def __unicode__(self):
         return '%s : %s' % (self.project.id, self.name, )
@@ -204,7 +204,7 @@ class Link(models.Model):
     file_link = models.FileField(upload_to=get_link_path,blank=True,null=True)
     linked = models.ForeignKey(Container, related_name="links", blank=False, null=False)
     name = models.CharField(blank=True, max_length=100)
-    active = models.BooleanField(default=True)
+    active = models.NullBooleanField(default=True)
     ordering = models.IntegerField(default=0)
     
     def __unicode__(self):
@@ -238,10 +238,10 @@ class Comp(models.Model):
     """
     name = models.CharField(max_length=128)
     background = models.ImageField(upload_to=get_comp_path, blank=True, null=True)
-    remove_background = models.BooleanField('Remove Background')
+    remove_background = models.NullBooleanField('Remove Background')
     background_colorfield = ColorField(blank=True) 
     ordering = models.IntegerField(default=0)
-    active = models.BooleanField(default=True)
+    active = models.NullBooleanField(default=True)
     linked = models.ForeignKey(Container, related_name="comps", blank=False, null=False)
     
     @property
@@ -300,7 +300,7 @@ class CompSlide(models.Model):
     backgroundfield = models.ImageField(upload_to=get_slide_path, blank=True, null=True)
     remove_background = models.BooleanField('Remove Background')
     background_colorfield = ColorField(blank=True) 
-    active = models.BooleanField(default=True)
+    active = models.NullBooleanField(default=True)
     ordering = models.IntegerField(default=0)
     
     @property

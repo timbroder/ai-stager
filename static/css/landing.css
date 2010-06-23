@@ -1,28 +1,18 @@
 /***********************************************************
 landing.css
 **********************************************************/
-#main { padding-top: 27px; }
- #maincontent { 
-	float: left;
-	width: 700px;
-	padding: 5px 0 14px 0;
-	 font-family: georgia;
- }
-	 #maincontent .content { padding: 0 6.5em; }
+#main { 
+	float: none;
+	width: auto;
+	margin: 0;
+}
+
  #sidebar {
 /*	float: right;*/
 }   
  h1 {
-	font-family: georgia;
-	font-size: 1.0em;
-	font-weight: bold;
-	color: #494949;
-	text-transform:  uppercase;
-	background-repeat: no-repeat;
-	background-position: 0 0;
-	text-indent: -1000em;
-	height: 39px;
+	
 }
- h1.clients { background-image: url(/static/images/header_clients.gif); }
+ h1.clients {  }
  
  
