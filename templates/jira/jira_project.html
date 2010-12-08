@@ -44,6 +44,7 @@
 									<th>Summary</th>
 									<th>Description</th>
 									<th>Status</th>
+									<th>Version</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -53,6 +54,7 @@
 										<td><a class="inline" href="#{{ jira.id }}">{{ jira.summary }}</a></td>
 										<td></td>
 										<td><div class="inline">{{ jira.status|status_string }}</div></td>
+										<td><div class="inline">{% for v in jira.fixVersions %}{% if forloop.first %}{{ v.name }}{% endif %}{% endfor %}</div></td>
 								{% endfor %}
 							</tbody>
 							<tfoot>
@@ -61,6 +63,7 @@
 									<th>Summary</th>
 									<th>Description</th>
 									<th>Status</th>
+									<th>Version</th>
 								</tr>
 							</tfoot>
 						</table>
@@ -113,11 +116,12 @@
 	{% for jira in jiras %}
 		<div style="display:none" id="{{ jira.id }}">
 			<div class="wrapper">
-			<strong>Issue:</strong> {{ jira.key }}<br/><br/>
+			<strong>Issue:</strong>{{ jira.key }}<br/><br/>
 			<strong>Status:</strong> {{ jira.status|status_string }}<br/><br/>
 			<strong>Summary:</strong> {{ jira.summary }}<br/><br/>
 			<strong>Description:</strong> {{ jira.description }}<br/><br/>
-			<strong>PM Status:</strong> {{ jira.customFieldValues }}<br/><br/>
+			<!-- <strong>PM Status:</strong> {{ jira.customFieldValues }}<br/><br/> -->
+			<strong>Versions:</strong> {% for v in jira.fixVersions %}{{ v.name }}{% endfor %}<br/><br/>
 			</div>
 		</div>
 	{% endfor %}
@@ -130,7 +134,7 @@
 				"bSort": true,
 				"bInfo": false,
 				"bAutoWidth": false,
-				"aoColumns": [null, { "bSortable": false }, { "bSearchable": false,"bVisible": false }, null]
+				"aoColumns": [null, { "bSortable": false }, { "bSearchable": false,"bVisible": false }, null, null]
 	
 			 } );
 		 
