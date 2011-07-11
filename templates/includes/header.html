@@ -1,22 +1,20 @@
-<div id="header" class="clear">
+
+
+
+
     {% if client.logo %}
+	<!--
     <div id="projectlogo">
         <img src="{{ MEDIA_URL }}/static/{{ client.logo }}" alt="{{ project.client.name }}" title="{{ project.client.name }}" />
     </div>
+	-->
     {% endif %}
 	
 	<div id="project_nav" class="clear">
 		{% if client.has_multiple_projects %}
-		<div id="projecttitle">
-		{% if not mobify %}
-			<img id="client_logo" src="{{ MEDIA_URL }}/static/images/title_staging-site-for.gif" alt="Staging Site For" />
-		{% endif %}
-			<div id="projectdesc">{{ client.name }} - {{ project.name }}</div>
-		</div>
 		<div id="otherprojects">
-			<img src="{{ MEDIA_URL }}/static/images/title_other-projects.gif" alt="Other Projects" />
+			<div class="header">Other Projects</div>
 			<div id="widgetwrap">
-				<div id="projects-top"><!-- --></div>
 				<select id="project_switcher" class="dropdown" name="site" {% if mobify %}onchange="document.location = this.value" {% endif %}>
 					{% for project_option in client.projects.all %}
 					<option value="/client/{{ project.client.path }}/{{ project_option.path }}/"  {% ifequal project project_option %}selected='selected'{% endifequal %}>{{ project_option.name }}</option>
@@ -24,13 +22,5 @@
 				</select>
 			</div>
 		</div>
-		{% else %}
-		<div id="projecttitle" class="single">
-			{% if not mobify %}
-			<img id="client_logo" src="{{ MEDIA_URL }}/static/images/title_staging-site-for.gif" alt="Staging Site For" />
-			{% endif %}
-			<div id="projectdesc">{{ client.name }}{% if project.name %} - {{ project.name }}{% endif %}</div>
-		</div>
 		{% endif %}
 	</div>
-</div>

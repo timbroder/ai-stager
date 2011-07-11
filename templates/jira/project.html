@@ -1,17 +1,38 @@
 {% extends 'stager/project.html' %}
+
+{% block cufon %}
+	Cufon.replace('.lead h2', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+	Cufon.replace('.lead .date', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+	Cufon.replace('#sidebar h3', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+	Cufon.replace('.contentblock p.pm-subcat', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+	Cufon.replace('#otherprojects .header', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+	Cufon.replace('#maincontent .cat-buttons li', { fontFamily: 'Berthold Akzidenz Grotesk BE CN', hover:true });
+	Cufon.replace('.catblock .filter h3', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+{% endblock %}
+
+{% block title %}{{ client.name }} {% endblock %}
+{% block description %}{{ project.name }} {% endblock %}
+
+{% block utility %}
+	{% include "includes/nav_utility.html" %}
+{% endblock %}
+
+{% block header_extra %}
+	{% include "includes/header.html" %}
+{% endblock %}
+
 {% load has_jira %}
 	{% block project_links %}	
 	
 	{% if project.links.all %}
 		<div class="contact-list" id="project-links">
-			<h3><img src="{{ MEDIA_URL }}/static/images/title_project-resources.gif" alt="Project Resources" /></h3>
+			<h3>Project Resources</h3>
 			<ul>
 				{% for link in project.links.all %}
-					<li><a onclick="window.open(this.href);return false;" href="{{ link.link }}" >{{ link.name }}</a>
-					</li>
+					<li class="{{ link.name }}"><a onclick="window.open(this.href);return false;" href="{{ link.link }}">{{ link.name }}</a></li>
 				{% endfor %}
 				{% if client.path|has_jira:project.path %}
-					<li><a href="jira/projects" >Jira</a></li>
+					<li class="jira"><a href="jira/projects">Jira</a></li>
 				{% endif %}
 			</ul>
 		</div>
@@ -19,9 +40,9 @@
 		{% if not mobify %}
 			{% if client.path|has_jira:project.path %}
 			<div class="contact-list" id="project-links">
-				<h3><img src="{{ MEDIA_URL }}/static/images/title_project-resources.gif" alt="Project Resources" /></h3>
+				<h3>Project Resources</h3>
 				<ul>
-					<li><a href="jira/projects" >Jira</a></li>
+					<li><a href="jira/projects">Jira</a></li>
 				</ul>
 			</div>
 			{% endif %}

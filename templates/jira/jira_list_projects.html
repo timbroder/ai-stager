@@ -4,13 +4,13 @@
 	{{ project.client.name }} : {{ project.name }} : Jira Projects
 {% endblock %}
 
+{% block cufon %}
+	Cufon.replace('#maincontent .content h2', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+	Cufon.replace('#sidebar h3', { fontFamily: 'Berthold Akzidenz Grotesk BE CN' });
+{% endblock %}
+
 {% block section_css %}
-		<style type="text/css">
-			#maincontent .content {
-				padding: 0 6.5em;
-			}
-		</style>
-<link href="{{ MEDIA_URL }}/static/css/jira/jira_table.css" rel="stylesheet" type="text/css" />
+	<link href="{{ MEDIA_URL }}/static/css/jira/jira_table.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block section_js %}
@@ -18,38 +18,43 @@
 		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/staging.js"></script>
 {% endblock %}
 
+{% block title %}{{ client.name }} {% endblock %}
+{% block description %}{{ project.name }} {% endblock %}
+
+{% block utility %}
+	{% include "includes/nav_utility.html" %}
+{% endblock %}
+
+{% block header_extra %}
+	{% include "includes/header.html" %}
+{% endblock %}
+	
 {% block main_content %}
 <div id="main" class="clear">
-	<div id="content-1">
-	{% include "includes/header.html" %}
-	</div>
-		<div id="maincontent">
-				{% if client %}
-				<h1>{{ client.name }}</h1>
-				<div class="content">
-					<div class="projects">
-						<div class="head">
-							<h2 class="projects">Jira Projects</h2>
-						</div>
-						{% if jiras %}
-						<ul class="projects">
-							{% for jira in jiras %}
-							<li><a href="/client/{{ client.path }}/{{ project.path }}/jira/{{ jira.key}}/">{{ jira.name }}</a></li>
-							{% endfor %}
-						</ul>
-						{% endif %}
-					</div>
+	<div id="maincontent">
+		{% if client %}
+		<div class="content">
+			<div class="projects">
+				<div class="head">
+					<h2 class="projects clear">Jira Projects</h2>
+				</div>
+				{% if jiras %}
+				<ul class="projects">
+					{% for jira in jiras %}
+					<li><a href="/client/{{ client.path }}/{{ project.path }}/jira/{{ jira.key}}/">{{ jira.name }}</a></li>
+					{% endfor %}
+				</ul>
 				{% endif %}
 			</div>
+		{% endif %}
 		</div>
+	</div>
 </div>
 
 <div id="sidebar">
-	<a id="logout" href="/logout/">Log Out</a>
-	<a href="/home/"><img src="{{ MEDIA_URL }}/static/images/logo_ai.gif" alt="Alexander Interactive Staging Site"  title="Alexander Interactive Staging Site" class="ai-logo" width="42" /></a>
 	{% block project_links %}	
 		<div class="contact-list" id="project-links">
-			<h3><img src="{{ MEDIA_URL }}/static/images/title_project-resources.gif" alt="Project Resources" /></h3>
+			<h3>Project Resources</h3>
 			<ul>
 				<li><a href="/client/{{ client_path }}/{{ project_path }}/">Project Home</a></li>
 				{% if project.links.all %}
@@ -62,7 +67,7 @@
 		</div>	
 	{% if project.ai_contacts %}
 		<div class="contact-list" id="ai-contacts">
-			<h3><img src="{{ MEDIA_URL }}/static/images/title_ai-contacts.gif" alt="AI Contacts" /></h3>
+			<h3>A<span>i</span> Contacts</h3>
 			{% for contact in project.ai_contacts %}
 				{% include "contact.html" %}
 			{% endfor %}

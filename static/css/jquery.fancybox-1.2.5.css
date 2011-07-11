@@ -67,6 +67,7 @@ div#fancy_div {
 
 	div#fancy_div .wrapper{
 		color: #585858;
+		width: 550px;
 		padding: 10px;	
 	}
 		div#fancy_div .wrapper strong { color: #272727; }

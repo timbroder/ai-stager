@@ -15,6 +15,6 @@ $(document).ready(function () {
 		document.location = $('#project_switcher').val();
 	});
 
-	$('#maincontent').tabs();
+	$('#maincontent .subnav').tabs();
 });
 
