@@ -48,7 +48,9 @@
 	{% if slide %}
 		<div id="slide">
 			{% if mobify %}
-			<a href="{{next}}"><img src='{% thumbnail slide.image 320x99999 %}' /></a>
+			{% thumbnail slide.image "320x99999" as im %}
+			<a href="{{next}}"><img src='{{im.url}}' /></a>
+			{% endthumbnail %}
 			{%else%}
 			<a href="{{next}}"><img src='{{MEDIA_URL}}/static/{{ slide.image }}' /></a>
 			{% endif %}
