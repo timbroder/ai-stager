@@ -10,11 +10,12 @@
 {% endblock %}
 
 {% block section_js %}
-		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/dropdown.js"></script>
-		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/staging.js"></script>
-		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/jquery.tabs.pack.js"></script>
+		<script type="text/javascript" src="/static/js/dropdown.js"></script>
+		<script type="text/javascript" src="/static/js/staging.js"></script>
+		<script type="text/javascript" src="/static/js/jquery.tabs.pack.js"></script>
+		<script type="text/javascript" src="/static/js/project.js"></script>
 	{% if user.is_staff %}
-		<script type="text/javascript" src="{{ MEDIA_URL }}/static/js/admin_overlay.js"></script>
+		<script type="text/javascript" src="/static/js/admin_overlay.js"></script>
 	{% endif %}
 {% endblock %}
 
@@ -57,11 +58,9 @@
 						{% endfor %}
 						{% if not mobify %}</ul></div>{% else %}
 					</p>{% endif %}
-					
-					{% for rollup in project.category_rollups %}
-						{% if rollup.sections %}
-						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">
-							<div class="filter">
+					<!-- remove double div ? -->
+					<div  class="catblock">
+					<div class="filter">
 								<h3>Jump to</h3>
 								<div class="dropdown">
 									<select>
@@ -75,14 +74,21 @@
 								</div>
 								<h3>View by</h3>
 								<div class="views">
-									<a href="#" class="list_view">List</a>
-									<a href="#" class="grid_view">Grid</a>
+									<a href="javascript:void(0)" onclick="show('#list_section', '#grid_section');" class="list_view">List</a>
+									<a href="javascript:void(0)" onclick="show('#grid_section', '#list_section');" class="grid_view">Grid</a>
 								</div>
 								<h3 class="approved">Approved Design</h3>
 							</div>
+					</div>
+					
+					{% for rollup in project.category_rollups %}
+						{% if rollup.sections %}
+						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">
 							
+
 							{% for section in rollup.sections %}
 							<div class="contentblock section">
+<div id ="grid_section">
 
 								<div class="lead clear">
 									<h2>{{ section.name }}</h2>
@@ -98,42 +104,42 @@
 								{% endif %}
 								
 								<div class="grid clear">
-									<div class="clear">
-										<div class="thumbs">
-											<h2>New Pages</h2>
-											<div class="thumb">
-												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
-												<p class="approved">Reprints</p>
-											</div>
-											<div class="thumb">
-												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
-												<p>Next Month's Stories</p>
-											</div>
-											<div class="thumb last">
-												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
-												<p>About Us</p>
-											</div>
+									
+									{% if section.subsections %}
+										{% for subsection in section.subsections.all %}
+										<div class="clear">
+											{% if subsection.comps.all %}
+											
+												{% for comp in subsection.comps.all %}
+													<div class="thumbs">
+													<h2>{{comp.name}}</h2>
+													{% if comp.slides %}
+														{% for slide in comp.slides.all %}
+															{% if slide.active %}
+															<div class="thumb 
+															{% if forloop.last %}
+																last
+															{% endif %} 
+															"> 
+																<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}">
+																<img src="/static/{{slide.image}}" width="206" height="154" alt="" /> </a>			    
+																<p class="approved">{{ slide.name }}</p>
+															</div>
+															{% endif %} 
+														{% endfor %}
+													{% endif %} 	
+													</div>
+												{% endfor %}
+									remember active/inactive staff/not staff logic here
+											{% endif %}
 										</div>
-									</div>
-									<div class="clear">
-										<div class="thumbs">
-											<h2>Graphs</h2>
-											<div class="thumb">
-												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
-												<p>Graph Example #1 - Area</p>
-											</div>
-											<div class="thumb">
-												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
-												<p>Graph Example #2 - Area</p>
-											</div>
-											<div class="thumb last">
-												<img src="/static/images/fpo_thumb.jpg" width="206" height="154" alt="" />
-												<p>Graph Example #3 - Area</p>
-											</div>
-										</div>
-									</div>
-								</div>
+										{% endfor %}
+									{% endif %}
+									
 
+								</div>
+</div>
+<div id ="list_section">
 								{% if section.links.all %}
 									<ul class="links">
 										{% for link in section.links.all %}
@@ -147,7 +153,7 @@
 								{% endif %}
 
 								{% if section.comps.all %}
-									<ul class="links">
+									<ul class="links">links for comps
 										{% for comp in section.comps.all %}
 											{% include 'includes/comps.html' %}
 										{% endfor %}
@@ -156,19 +162,21 @@
 
 								{% if section.subsections %}
 									{% for subsection in section.subsections.all %}
-										<p class="pm-subcat">{{ subsection.name }}:</p>
+										<p class="pm-subcat">{{ subsection.name }}: subcat</p>
 										{% if subsection.description %}<p>{{ subsection.description }}</p>{% endif %}
-										{% if subsection.links.all %}
-											<ul class="links">
+											{% if subsection.links.all %}
+												<ul class="links">
 												{% for link in subsection.links.all %}
-												<li {% if link.file_link %} class="{{link.link|slice:"-3:"}}" {% endif %}>
+												<li {% if link.file_link %} 
+														class="{{link.link|slice:"-3:"}}"
+													{% endif %}>
 													<a href="{{ link.link }}" title="{{ link.name }}">
 														{{ link.name }}
-													</a>
+													</a> text here
 												</li>
 												{% endfor %}
 											</ul>
-										{% endif %}
+											{% endif %}
 										{% if subsection.comps.all %}
 											<ul class="links">
 												{% for comp in subsection.comps.all %}
@@ -189,12 +197,13 @@
 						</div>
 					{% endif %}
 				{% endfor %}
-			{% else %}
+</div>			{% else %}
 				<p>No categories have been associated with this project yet.</p>
 			{% endif %}
 		</div>
 		
-		
+</div>
+</div>		
 		<!-- Stager 2.0 section 
 		<div class="admin" id="edit_slide">
 			<div class="header">
@@ -255,7 +264,6 @@
 		</div>
 		-->
 
-</div>
 
 <div id="sidebar">
 

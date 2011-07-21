@@ -433,7 +433,7 @@ a:hover {
 			}*/		
 
 .catblock {
-	padding: 0 0 50px 0;
+	padding: 0 0 10px 0;
 }
 	.catblock .filter {
 		background-color: #f9f9f9;
@@ -670,7 +670,9 @@ a:hover {
 			background: url(/static/images/icon_zip.gif) top left no-repeat;
 			padding-left: 20px;
 		}
-
+    #list_section{
+		display:none;
+	}
 #maincontent .content .client .head {
  	border-bottom: 1px solid #dadada;
  	padding: 7px 0 4px 0;

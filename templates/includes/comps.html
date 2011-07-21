@@ -7,13 +7,14 @@
 	{% else %}
 		{% if user.is_staff %}
 			<a href="{{ comp.link }}" title="{{ comp.name }}" class="inactive">
-				{{ comp.name }}
+				 </a>{{ comp.name }}
 			</a>
 		{% endif %}
 	{% endif %}
 </li>
 <ul class="slides">
 	{% for slide in comp.slides.all %}
+	    
 		<li>
 			{% if comp.active %}
 				{% if slide.active %}
