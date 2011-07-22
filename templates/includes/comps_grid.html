@@ -1,0 +1,27 @@
+
+<div class="thumbs">
+<h2>{{comp.name}}</h2>
+	{% if comp.slides %}
+	{% for slide in comp.slides.all %}
+		{% if slide.active %}
+			<div 
+			{% if forloop.first %}			
+				class="thumb first"
+			{% else %}
+			{% if forloop.last %}
+				class="thumb last"				
+			{% else %}
+				class="thumb"
+			{% endif %} {% endif %}
+			 >
+			<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}">
+			<img src="/static/{{slide.image}}" width="206" height="154" alt="" /> </a>			    
+			<p class="approved">{{ slide.name }}</p>	
+		</div>
+		{% endif %} 
+	{% endfor %}
+	{% endif %} 
+</div>
+
+
+												

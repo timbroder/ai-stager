@@ -530,13 +530,14 @@ a:hover {
 	.contentblock .grid {
 	
 	}
-		.contentblock .grid .thumbs { margin: 0 0 11px 0; }
+		.contentblock .grid .thumbs { margin: 0 0 11px 0; clear:both;}
 			.contentblock .grid .thumbs .thumb { 
 				float: left !important; 
 				margin: 0 20px 0 0;
 				width: 210px;
 			}
 			.contentblock .grid .thumbs .thumb.last { margin: 0; }
+			.contentblock .grid .thumbs .thumb.first { clear: left; }
 				.contentblock .grid .thumbs h2 { 
 					font-size: 1.3em;
 					color: #252525;

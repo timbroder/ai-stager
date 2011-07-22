@@ -30,12 +30,10 @@
 
 {% block main_content %}
 	{% block mobile_content %}
-	<div id="main">
-		
+	<div id="main">		
 		<div id="maincontent">
 			{% if project.categories %}
-				{% if not mobify %}<div class="subnav"><ul class="cat-buttons clear">{% else %}
-					<p class="noBg">{% endif %}
+				{% if not mobify %}<div class="subnav"><ul class="cat-buttons clear">{% else %}<p class="noBg">{% endif %}
 						{% if mobify %}<span><a href="/home/">&laquo; Home</a></span>{%endif%}
 						{% for category in project.categories.all %}
 							{% if category.active %}
@@ -56,20 +54,19 @@
 								{% endif %}
 							{% endif %}
 						{% endfor %}
-						{% if not mobify %}</ul></div>{% else %}
-					</p>{% endif %}
+						{% if not mobify %}</ul></div>{% else %}</p>{% endif %}
 					<!-- remove double div ? -->
 					<div  class="catblock">
-					<div class="filter">
+						<div class="filter">
 								<h3>Jump to</h3>
 								<div class="dropdown">
-									<select>
-										<option value="">Select set</option>
-										<option value="set1">Set 1</option>
-										<option value="set2">Set 2</option>
-										<option value="set3">Set 3</option>
-										<option value="set4">Set 4</option>
-										<option value="set5">Set 5</option>									
+									<select onChange="gotosection(value);">
+									<option value="">Select set</option>
+								{% for rollup in project.category_rollups %}
+									{% for section in rollup.sections %}										
+									<option value="#{{ section.name|slugify }}_section">{{section.name}}</option>		
+									{% endfor %}
+								{% endfor %}										
 									</select>
 								</div>
 								<h3>View by</h3>
@@ -78,19 +75,17 @@
 									<a href="javascript:void(0)" onclick="show('#grid_section', '#list_section');" class="grid_view">Grid</a>
 								</div>
 								<h3 class="approved">Approved Design</h3>
-							</div>
+						</div>
 					</div>
 					
-					{% for rollup in project.category_rollups %}
-						{% if rollup.sections %}
-						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">
-							
-
+						<div id ="grid_section">	
+{% for rollup in project.category_rollups %}
+						{% if rollup.sections %}						
+						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">				
 							{% for section in rollup.sections %}
-							<div class="contentblock section">
-<div id ="grid_section">
-
-								<div class="lead clear">
+							<div class="contentblock section">		
+							<div id="{{ section.name|slugify }}_section">
+								<div class="lead clear">											
 									<h2>{{ section.name }}</h2>
 									{% if section.date %}
 									<div class="date">
@@ -98,52 +93,53 @@
 									</div>
 									{% endif %}
 								</div>
-
 								{% if section.description %}
 								<p class="pm-notes">{{ section.description }}</p>
 								{% endif %}
-								
-								<div class="grid clear">
-									
+								added section comps here								
+								<div class="grid clear">								
+								{% if section.comps.all %}
+									{% for comp in section.comps.all %}									
+									{% include 'includes/comps_grid.html' %}									
+										{% endfor %}
+								{% endif %} 								
+								</div>								
+								<div class="grid clear">									
 									{% if section.subsections %}
 										{% for subsection in section.subsections.all %}
-										<div class="clear">
 											{% if subsection.comps.all %}
-											
+											<!-- TODO: style this better-->
+											<h2>{{subsection.name}}</h2>
+										{% if subsection.description %}	
+										<p class="pm-notes">{{subsection.description}}</p>
+										{% endif %}										
+										<div class="clear">
 												{% for comp in subsection.comps.all %}
-													<div class="thumbs">
-													<h2>{{comp.name}}</h2>
-													{% if comp.slides %}
-														{% for slide in comp.slides.all %}
-															{% if slide.active %}
-															<div class="thumb 
-															{% if forloop.last %}
-																last
-															{% endif %} 
-															"> 
-																<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}">
-																<img src="/static/{{slide.image}}" width="206" height="154" alt="" /> </a>			    
-																<p class="approved">{{ slide.name }}</p>
-															</div>
-															{% endif %} 
-														{% endfor %}
-													{% endif %} 	
-													</div>
+													{% include 'includes/comps_grid.html' %}
 												{% endfor %}
 									remember active/inactive staff/not staff logic here
-											{% endif %}
 										</div>
+										{% endif %}
 										{% endfor %}
 									{% endif %}
-									
-
-								</div>
-</div>
-<div id ="list_section">
+								</div>								
+							</div>
+							</div>
+							{% endfor %}
+						</div>
+						{% endif %}
+						{% endfor %}
+						</div>
+				<div id ="list_section">
+				{% for rollup in project.category_rollups %}
+						{% if rollup.sections %}
+						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">
+							{% for section in rollup.sections %}
+							<div class="contentblock section">
 								{% if section.links.all %}
 									<ul class="links">
 										{% for link in section.links.all %}
-										<li {% if link.file_link %} class="{{link.link|slice:"-3:"}}" {% endif %}>
+										<li {% if link.file_link %} class='{{link.link|slice:"-3:"}}' {% endif %}>
 											<a href="{{ link.link }}" title="{{ link.name }}">
 												{{ link.name }}
 											</a>
@@ -151,15 +147,13 @@
 										{% endfor %}
 									</ul>
 								{% endif %}
-
 								{% if section.comps.all %}
-									<ul class="links">links for comps
+									<ul class="links">
 										{% for comp in section.comps.all %}
 											{% include 'includes/comps.html' %}
 										{% endfor %}
 									</ul>
 								{% endif %}
-
 								{% if section.subsections %}
 									{% for subsection in section.subsections.all %}
 										<p class="pm-subcat">{{ subsection.name }}: subcat</p>
@@ -168,11 +162,11 @@
 												<ul class="links">
 												{% for link in subsection.links.all %}
 												<li {% if link.file_link %} 
-														class="{{link.link|slice:"-3:"}}"
+														class='{{link.link|slice:"-3:"}}'
 													{% endif %}>
 													<a href="{{ link.link }}" title="{{ link.name }}">
 														{{ link.name }}
-													</a> text here
+													</a> 
 												</li>
 												{% endfor %}
 											</ul>
@@ -188,7 +182,8 @@
 								{% endif %}
 							</div>
 							{% endfor %}
-						</div>
+						</div>	
+						
 					{% else %}
 						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">
 							<div class="contentblock">
@@ -197,13 +192,16 @@
 						</div>
 					{% endif %}
 				{% endfor %}
-</div>			{% else %}
+				</div>
+			{% else %} 
 				<p>No categories have been associated with this project yet.</p>
+		</div>	
 			{% endif %}
 		</div>
 		
 </div>
 </div>		
+
 		<!-- Stager 2.0 section 
 		<div class="admin" id="edit_slide">
 			<div class="header">
@@ -264,39 +262,7 @@
 		</div>
 		-->
 
+{% include 'includes/sidebar.html' %}
 
-<div id="sidebar">
-
-	{% block project_links %}
-	{% if project.links.all %}
-		<div class="contact-list" id="project-links">
-			<h3>Project Resources</h3>
-			<ul>
-				{% for link in project.links.all %}
-					<li class="{{ link.name }}"><a onclick="window.open(this.href);return false;" href="{{ link.link }}">{{ link.name }}</a></li>
-				{% endfor %}
-			</ul>
-		</div>
-	{% endif %}
-	{% endblock %}
-
-	{% if project.ai_contacts %}
-		<div class="contact-list" id="ai-contacts">
-			<h3>A<span>i</span> Contacts</h3>
-			{% for contact in project.ai_contacts %}
-				{% include "contact.html" %}
-			{% endfor %}
-		</div>
-	{% endif %}
-	{% if project.client_contacts %}
-		<div class="contact-list" id="client-contacts">
-			<h3>Client Contacts</h3>
-			{% for contact in project.client_contacts %}
-				{% include "contact.html" %}
-			{% endfor %}
-		</div>
-	{% endif %}
-	{% include "includes/info.html" %}
-</div>
 	{% endblock %}
 {% endblock %}
