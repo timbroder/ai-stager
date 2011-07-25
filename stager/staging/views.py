@@ -30,18 +30,31 @@ def mobify(request):
 		#return request.device
 		return mobify
 
-
+from models import ViewChoice
 @login_required
 def project(request, client_path, project_path):
     """
     Gets the project view for the specified project.
     """
+
+    if request.method=='POST':
+	    if request.POST['approved'] and request.POST['approved']=='on':
+		if request.POST['view_preference']: 
+			if request.POST['view_preference'] ==  'grid' or request.POST['view_preference'] == 'list': # preference must equal 'list' or 'grid'
+				# store the user's preference in the database
+				u = request.user			
+				u.userschoices.default_display = ViewChoice.objects.get(default_d=request.POST['view_preference'])
+				u.userschoices.save()
+				
+    # display the view that matches the user's selection				
+    u = request.user
+    choice= ViewChoice.objects.get(id=UserPreference.objects.get(user=u.id).default_display_id).default_d #choice will be either 'grid' or 'list'
     try:
-        client = Client.objects.get(path=client_path)
-        project = client.projects.get(path=project_path)
-        return render_to_response('project.html', {'project':project, 'client':client, 'user':request.user, 'check':check_mobile(request),'mobify':mobify(request)})
+	client = Client.objects.get(path=client_path)
+	project = client.projects.get(path=project_path)
+	return render_to_response('project.html', {'project':project, 'client':client, 'user':request.user, 'choice':choice, 'check':check_mobile(request),'mobify':mobify(request)})
     except Client.DoesNotExist, Project.DoesNotExist:
-        raise Http404
+	raise Http404
 
 def login(request):
     """

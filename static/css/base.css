@@ -481,6 +481,9 @@ a:hover {
 			float: right;
 			padding: 1px 0 0 20px;
 		}
+		.catblock .filter input {
+			float: right;
+		}
 .contentblock {
 	width: 670px;
 	padding-bottom: 46px;

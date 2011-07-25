@@ -5,8 +5,6 @@ from django.template.defaultfilters import slugify
 import os
 from stager.widgets import ColorPickerWidget
 
-
-
 class ColorField(models.CharField):
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = 10
@@ -336,4 +334,17 @@ class CategoryRollup(object):
         self.category = category
         self.sections = sections
 
+class ViewChoice(models.Model):
+    default_d = models.TextField(choices = (('grid', 'grid'), ('list','list'))) 
+     
+    def __unicode__(self):
+        return self.default_d
+
+class UserPreference(models.Model):
+    """This class will add features to Django's User class using a connecting one-to-one field on the User Model"""
+    default_display = models.ForeignKey(ViewChoice, default = ViewChoice.objects.get(id=1).id)
+    user = models.OneToOneField(User, unique=True, related_name='userschoices')
+
+    def __unicode__(self):
+	return self.user.username + "'s viewing choice"
 

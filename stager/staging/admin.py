@@ -3,6 +3,11 @@ from stager.staging.models import *
 from forms import *
 from django.contrib.admin.models import LogEntry
 
+# User Preferences
+class UserPreferenceAdmin(admin.ModelAdmin):
+    fields = ('user', 'default_display',)
+
+
 # CLIENT PAGE
 class ProjectInline(admin.TabularInline):
     model = Project
@@ -113,6 +118,7 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_display = ('object_repr','content_type','user','change_message','action_time')
 
 try:
+    admin.site.register(UserPreference, UserPreferenceAdmin)
     admin.site.register(Subsection, SubsectionAdmin)
     admin.site.register(Section, SectionAdmin)
     admin.site.register(Project, ProjectAdmin)
