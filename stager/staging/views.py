@@ -38,17 +38,18 @@ def project(request, client_path, project_path):
     """
 
     if request.method=='POST':
-	    if request.POST['approved'] and request.POST['approved']=='on':
-		if request.POST['view_preference']: 
-			if request.POST['view_preference'] ==  'grid' or request.POST['view_preference'] == 'list': # preference must equal 'list' or 'grid'
-				# store the user's preference in the database
-				u = request.user			
-				u.userschoices.default_display = ViewChoice.objects.get(default_d=request.POST['view_preference'])
-				u.userschoices.save()
+	approved= request.POST.get('approved', False)
+	if approved and approved=='on':
+	    pref= request.POST.get('view_preference', False)
+	    if pref and pref == 'grid' or pref == 'list':
+		# store the user's preference in the database
+		u = request.user			
+		u.userschoices.default_display = ViewChoice.objects.get(default_d=pref)
+		u.userschoices.save()
 				
     # display the view that matches the user's selection				
     u = request.user
-    choice= ViewChoice.objects.get(id=UserPreference.objects.get(user=u.id).default_display_id).default_d #choice will be either 'grid' or 'list'
+    choice= ViewChoice.objects.get(id=UserPreference.objects.get(user=u.id).default_display_id).default_d 
     try:
 	client = Client.objects.get(path=client_path)
 	project = client.projects.get(path=project_path)

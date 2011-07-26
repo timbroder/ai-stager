@@ -335,16 +335,24 @@ class CategoryRollup(object):
         self.sections = sections
 
 class ViewChoice(models.Model):
+    """Stores a user's display choice - grid or list"""
     default_d = models.TextField(choices = (('grid', 'grid'), ('list','list'))) 
      
     def __unicode__(self):
         return self.default_d
 
 class UserPreference(models.Model):
-    """This class will add features to Django's User class using a connecting one-to-one field on the User Model"""
-    default_display = models.ForeignKey(ViewChoice, default = ViewChoice.objects.get(id=1).id)
+    """This class will add a feature to Django's User class using a connecting one-to-one field on the User Model"""
+    default_display = models.ForeignKey(ViewChoice, default = ViewChoice.objects.get(id=1).id) # to keep grid the default view, enter grid into the database first
     user = models.OneToOneField(User, unique=True, related_name='userschoices')
 
     def __unicode__(self):
 	return self.user.username + "'s viewing choice"
+
+from django.db.models.signals import post_save
+def create_userpreference(sender, instance, created, **kwargs):
+    if created:
+	UserPreference.objects.get_or_create(user=instance)
+
+post_save.connect(create_userpreference, sender=User)
 
