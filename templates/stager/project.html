@@ -45,9 +45,11 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 						{% if mobify %}<span><a href="/home/">&laquo; Home</a></span>{%endif%}
 						{% for category in project.categories.all %}
 							{% if category.active %}
+							
+							
 								{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="{{ category.name|slugify }}_tab"
 									class="tab"
-							   		href="#{{ category.name|slugify }}_category"
+							   		href="#{{ category.name|slugify }}_category_{{choice}}"
 							   		title="{{ category.name }}">{{ category.name }}
 								</a>
 							{% if not mobify %}</li>{% else %}</span>{% endif %}
@@ -80,12 +82,10 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 								<form name = "viewform" method='post' >
 								<h3>View by</h3>
 								<div class="views">
-								    <input type="hidden" name="view_preference" value = "{{choice}}">
-									<a href="javascript:void(0)" onclick="show('#list_section', '#grid_section', '{{choice}}');" class="list_view">List</a>
-									<a href="javascript:void(0)" onclick="show('#grid_section', '#list_section', '{{choice}}');" class="grid_view">Grid</a>
+								    <input type = "image" name = "choice" value = "list" src = "/static/images/btn/list.png" >
+									<input type = "image" name = "choice" value = "grid" src = "/static/images/btn/grid.png" >
 								</div>
 								
-								<input type = "checkbox" name = "approved" onchange="document.viewform.submit()";>
 								</form>
 								<h3 class="approved">Approved Design</h3>
 								
@@ -93,10 +93,12 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 					</div>
 					
 					
-					<div id ="list_section">
+					<div id ="list_section">{{choice}}
 				{% for rollup in project.category_rollups %}
 						{% if rollup.sections %}
-						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">
+						
+						
+						<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
 							{% for section in rollup.sections %}
 							<div class="contentblock section">
 							<div id="{{ section.name|slugify }}_section">
@@ -150,7 +152,10 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 						</div>	
 						
 					{% else %}
-						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">
+					
+					
+					
+						<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
 							<div class="contentblock">
 								<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
 							</div>
@@ -161,10 +166,13 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 				
 				
 				
-						<div id ="grid_section">	
+						<div id ="grid_section">{{choice}}	
 						{% for rollup in project.category_rollups %}
-						{% if rollup.sections %}						
-						<div id="{{ rollup.category.name|slugify }}_category" class="catblock">				
+						{% if rollup.sections %}	
+
+
+						
+						<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">				
 							{% for section in rollup.sections %}
 							<div class="contentblock section">		
 							<div id="{{ section.name|slugify }}_section">
@@ -210,11 +218,21 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 							</div>
 							{% endfor %}
 						</div>
+						{% else %}
+						
+						<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">
+							<div class="contentblock">
+								<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
+							</div>
+						</div>
+						
+						
 						{% endif %}
 						{% endfor %}
 						</div>
 				
-			{% else %} 
+			{% else %}
+					
 				<p>No categories have been associated with this project yet.</p>
 		</div>	
 			{% endif %}

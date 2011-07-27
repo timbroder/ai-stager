@@ -36,20 +36,18 @@ def project(request, client_path, project_path):
     """
     Gets the project view for the specified project.
     """
-
-    if request.method=='POST':
-	approved= request.POST.get('approved', False)
-	if approved and approved=='on':
-	    pref= request.POST.get('view_preference', False)
-	    if pref and pref == 'grid' or pref == 'list':
-		# store the user's preference in the database
-		u = request.user			
-		u.userschoices.default_display = ViewChoice.objects.get(default_d=pref)
-		u.userschoices.save()
-				
     # display the view that matches the user's selection				
     u = request.user
     choice= ViewChoice.objects.get(id=UserPreference.objects.get(user=u.id).default_display_id).default_d 
+    
+    if request.method=='POST':
+        # display the choice that user selected instead of their database value
+	choice= request.POST.get('choice', False)
+	if choice and choice == 'grid' or choice == 'list':
+	    # store the user's preference in the database			
+	    u.userschoices.default_display = ViewChoice.objects.get(default_d=choice)
+	    u.userschoices.save()
+				
     try:
 	client = Client.objects.get(path=client_path)
 	project = client.projects.get(path=project_path)
