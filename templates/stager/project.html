@@ -45,8 +45,6 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 						{% if mobify %}<span><a href="/home/">&laquo; Home</a></span>{%endif%}
 						{% for category in project.categories.all %}
 							{% if category.active %}
-							
-							
 								{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="{{ category.name|slugify }}_tab"
 									class="tab"
 							   		href="#{{ category.name|slugify }}_category_{{choice}}"
@@ -70,38 +68,31 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 						<div class="filter">
 								<h3>Jump to</h3>
 								<div class="dropdown">
-									<select onChange="gotosection(value);">
-									<option value="">Select set</option>
+									<select onChange="gotosection(value);">									
 								{% for rollup in project.category_rollups %}
-									{% for section in rollup.sections %}										
-									<option value="#{{ section.name|slugify }}_section">{{section.name}}</option>		
+									{% for section in rollup.sections %}
+									<option value="#{{ section.name|slugify }}_section_{{choice}}">{{section.name}}</option>		
 									{% endfor %}
 								{% endfor %}										
 									</select>
 								</div>
-								<form name = "viewform" method='post' >
+								<form name = "viewform" method='post' action="/client/{{client.path}}/{{project.path}}/"> 
 								<h3>View by</h3>
 								<div class="views">
 								    <input type = "image" name = "choice" value = "list" src = "/static/images/btn/list.png" >
 									<input type = "image" name = "choice" value = "grid" src = "/static/images/btn/grid.png" >
-								</div>
-								
+								</div>								
 								</form>
-								<h3 class="approved">Approved Design</h3>
-								
+								<h3 class="approved">Approved Design</h3>								
 						</div>
-					</div>
-					
-					
+					</div>									
 					<div id ="list_section">{{choice}}
 				{% for rollup in project.category_rollups %}
-						{% if rollup.sections %}
-						
-						
+						{% if rollup.sections %}							
 						<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
 							{% for section in rollup.sections %}
 							<div class="contentblock section">
-							<div id="{{ section.name|slugify }}_section">
+							<div id="{{ section.name|slugify }}_section_list">
 								{% if section.links.all %}
 									<ul class="links">
 										{% for link in section.links.all %}
@@ -150,12 +141,8 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 							</div>
 							{% endfor %}
 						</div>	
-						
-					{% else %}
-					
-					
-					
-						<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
+						{% else %}
+							<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
 							<div class="contentblock">
 								<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
 							</div>
@@ -163,19 +150,13 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 					{% endif %}
 				{% endfor %}
 				</div>
-				
-				
-				
 						<div id ="grid_section">{{choice}}	
 						{% for rollup in project.category_rollups %}
-						{% if rollup.sections %}	
-
-
-						
+						{% if rollup.sections %}
 						<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">				
 							{% for section in rollup.sections %}
 							<div class="contentblock section">		
-							<div id="{{ section.name|slugify }}_section">
+							<div id="{{ section.name|slugify }}_section_grid">
 								<div class="lead clear">											
 									<h2>{{ section.name }}</h2>
 									{% if section.date %}
@@ -225,19 +206,14 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 								<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
 							</div>
 						</div>
-						
-						
 						{% endif %}
 						{% endfor %}
 						</div>
-				
-			{% else %}
-					
+			{% else %}					
 				<p>No categories have been associated with this project yet.</p>
 		</div>	
 			{% endif %}
-		</div>
-		
+		</div>		
 </div>
 </div>		
 
