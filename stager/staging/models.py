@@ -343,7 +343,7 @@ class ViewChoice(models.Model):
 
 class UserPreference(models.Model):
     """This class will add a feature to Django's User class using a connecting one-to-one field on the User Model"""
-    default_display = models.ForeignKey(ViewChoice, default = ViewChoice.objects.get(id=1).id) # to keep grid the default view, enter grid into the database first
+    default_display = models.ForeignKey(ViewChoice, default = ViewChoice.objects.get(id=1).id) # keep grid the initial view
     user = models.OneToOneField(User, unique=True, related_name='userschoices')
 
     def __unicode__(self):

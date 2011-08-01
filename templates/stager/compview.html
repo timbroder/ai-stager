@@ -45,7 +45,7 @@
 {% endblock %}
 
 {% block main_content %}
-	{% if slide %}
+	{% if slide %} 
 		<div id="slide">
 			{% if mobify %}
 			{% thumbnail slide.image "320x99999" as im %}
@@ -62,7 +62,7 @@
 			</div>
 			{% endif %}
 	{% else %}
-		<div class="big">There are no slides for this comp yet.</div>
+		<div class="big">There are no slides for this comp yet.</div> /static/{{ slide.image }}
 	{% endif %}
 {% endblock %}
 {% endblock %}
