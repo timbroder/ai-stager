@@ -7,7 +7,7 @@
 	{% else %}
 		{% if user.is_staff %}
 			<a href="{{ comp.link }}" title="{{ comp.name }}" class="inactive">
-				 </a>{{ comp.name }}
+				 {{ comp.name }}
 			</a>
 		{% endif %}
 	{% endif %}

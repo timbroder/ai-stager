@@ -91,7 +91,9 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 						<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
 							{% for section in rollup.sections %}
 							<div class="contentblock section">
-							<div id="{{ section.name|slugify }}_section_list">
+							<div id="{{ section.name|slugify }}_section_list">							
+							<p class="pm-subcat">{{ section.name }}:</p>
+										{% if section.description %}<p>{{ section.description }}</p>{% endif %}											
 								{% if section.links.all %}
 									<ul class="links">
 										{% for link in section.links.all %}
@@ -112,7 +114,7 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 								{% endif %}
 								{% if section.subsections %}
 									{% for subsection in section.subsections.all %}
-										<p class="pm-subcat">{{ subsection.name }}: subcat</p>
+										<p class="pm-subcat">{{ subsection.name }}: </p>
 										{% if subsection.description %}<p>{{ subsection.description }}</p>{% endif %}
 											{% if subsection.links.all %}
 												<ul class="links">
