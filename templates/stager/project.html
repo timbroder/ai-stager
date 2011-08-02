@@ -112,8 +112,10 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 										{% endfor %}
 									</ul>
 								{% endif %}
-								{% if section.subsections %}
-									{% for subsection in section.subsections.all %}
+								{% if section.active_subsections %}
+								
+								
+									{% for subsection in section.active_subsections.all %}
 										<p class="pm-subcat">{{ subsection.name }}: </p>
 										{% if subsection.description %}<p>{{ subsection.description }}</p>{% endif %}
 											{% if subsection.links.all %}
@@ -168,8 +170,7 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 								</div>
 								{% if section.description %}
 								<p class="pm-notes">{{ section.description }}</p>
-								{% endif %}
-								added section comps here								
+								{% endif %}								
 								<div class="grid clear">								
 								{% if section.comps.all %}
 									{% for comp in section.comps.all %}									
@@ -178,10 +179,10 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 								{% endif %} 								
 								</div>								
 								<div class="grid clear">									
-									{% if section.subsections %}
-										{% for subsection in section.subsections.all %}
+									{% if section.active_subsections %}
+										{% for subsection in section.active_subsections.all %}
 											{% if subsection.comps.all %}
-											<!-- TODO: style this better-->
+											<!-- TODO: style this h2 -->
 											<h2>{{subsection.name}}</h2>
 										{% if subsection.description %}	
 										<p class="pm-notes">{{subsection.description}}</p>
@@ -190,7 +191,6 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 												{% for comp in subsection.comps.all %}
 													{% include 'includes/comps_grid.html' %}
 												{% endfor %}
-									remember active/inactive staff/not staff logic here
 										</div>
 										{% endif %}
 										{% endfor %}

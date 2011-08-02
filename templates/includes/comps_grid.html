@@ -1,6 +1,6 @@
 
 <div class="thumbs">
-
+<input type="hidden" {% cycle 'first' 'none' 'last'  as thumbposition %} />
 <h2>{{comp.name}}</h2>
 	{% if comp.slides %}
 	{% for slide in comp.slides.all %}
@@ -9,17 +9,18 @@
 		{% if comp.active %}
 		
 		{% if slide.active %}
+			<!-- if the comp is active and if the slide is active, show all-->
 			<div 
 			{% if forloop.first %}			
-				class="thumb first" cycle now
+				class="thumb first" 
 			{% else %}
 			{% if forloop.last %}
-				class="thumb last"		last now		
+				class="thumb last"				
 			{% else %}
-				class="thumb {% cycle 'none' 'last' 'first' as thumbposition %}" else now
+				class="thumb {% cycle thumbposition %}" 
 			{% endif %} {% endif %}
 			 >
-			 <!-- if the comp is active and if the slide is active, show all-->
+			 
 			<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}">
 			<img src="/static/{{slide.image}}" width="206" height="154" alt="" /> </a>	
 			<p class="approved">{{ slide.name }}</p>	
@@ -30,12 +31,12 @@
 			 {% if user.is_staff %}
 				 <div 
 				{% if forloop.first %}			
-					class="thumb first" staff cycle
+					class="thumb first" 
 				{% else %}
 				{% if forloop.last %}
-					class="thumb last"	staff last
+					class="thumb last"	
 				{% else %}
-					class="thumb {% cycle thumbposition %}" staff else
+					class="thumb {% cycle thumbposition %}" 
 				{% endif %} {% endif %}
 				 >
 				<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}" class="inactive">
