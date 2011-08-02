@@ -9,7 +9,7 @@
 		{% if comp.active %}
 		
 		{% if slide.active %}
-			<!-- if the comp is active and if the slide is active, show all-->
+			<!-- if the comp is active and if the slide is active, show active -->
 			<div 
 			{% if forloop.first %}			
 				class="thumb first" 
@@ -25,21 +25,20 @@
 			<img src="/static/{{slide.image}}" width="206" height="154" alt="" /> </a>	
 			<p class="approved">{{ slide.name }}</p>	
 			</div>
-			<!-- else if user is staff, show inactive -->
-			<!-- TODO: style the inactive class -->
+			<!-- else if user is staff, show inactive too -->
 			 {% else %}
 			 {% if user.is_staff %}
 				 <div 
 				{% if forloop.first %}			
-					class="thumb first" 
+					class="thumb inactive first" 
 				{% else %}
 				{% if forloop.last %}
-					class="thumb last"	
+					class="thumb inactive last"	
 				{% else %}
-					class="thumb {% cycle thumbposition %}" 
+					class="thumb inactive {% cycle thumbposition %}" 
 				{% endif %} {% endif %}
 				 >
-				<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}" class="inactive">
+				<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}">
 				<img src="/static/{{slide.image}}" width="206" height="154" alt="" /> </a>	
 				<p class="approved">{{ slide.name }}</p>	
 				</div>
@@ -47,19 +46,19 @@
 		{% endif %}
 		{% else %}
 			{% if user.is_staff %}
-			<!-- if comp not active and if user is staff show inactive-->	
+			<!-- if comp not active and if user is staff show inactive too-->	
 			 <!-- in other cases don't display at all-->
 			<div 
 			{% if forloop.first %}			
-				class="thumb first"
+				class="thumb inactive first"
 			{% else %}
 			{% if forloop.last %}
-				class="thumb last"				
+				class="thumb inactive last"				
 			{% else %}
-				class="thumb {% cycle thumbposition %}"
+				class="thumb inactive {% cycle thumbposition %}"
 			{% endif %} {% endif %}
 			 > 
-			<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}" class="inactive">
+			<a href="{{ comp.link }}{{ forloop.counter0 }}" title="{{ slide.name }}" >
 			<img src="/static/{{slide.image}}" width="206" height="154" alt="" /> </a>	
 			<p class="approved">{{ slide.name }}</p>	
 			</div>		    
