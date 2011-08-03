@@ -11,14 +11,47 @@
 
 {% block section_js %}
 <script type="text/javascript">
+// initialize page
 $(function() {
- $("ul.tabs").tabs("div.panes > div");
-});
-$(document).ready(function () {
+// categories using jquery tabs
+$("ul.tabs").tabs("div.panes > div");
+// fill dropdown based on first category/tab
+fillDropdown('{{ project.categories.all.0.name|cut:" " }}');
+// show the list or grid section divs based on the user's viewing preference
+// the selected view is placed in the database and remembered as the preffered view
 if ("{{choice}}"==="grid"){
 	show('#grid_section', '#list_section', "{{choice}}");}
 else {show('#list_section', '#grid_section', "{{choice}}");}
 });
+
+function fillDropdown(categoryName){	
+	{% for rollup in project.category_rollups %}
+	if('{{ rollup.category.name|cut:" " }}'== categoryName){
+			removeAllOptions(document.dropdownform.sections);
+			{% for section in rollup.sections %}
+			addOption(document.dropdownform.sections, '{{section.name}}', '#{{ section.name|slugify }}_section_{{choice}}');
+			{% endfor %}
+			}
+	{% endfor %}				
+}
+// remove all the options and clear the drop down list
+function removeAllOptions(selectbox)
+{
+	var i;
+	for(i=selectbox.options.length-1;i>=0;i--)
+	{
+	selectbox.remove(i);
+	}
+}
+
+// add one option to a drop down list
+function addOption(selectbox,text,value )
+{
+	var optn = document.createElement("OPTION");
+	optn.text = text;
+	optn.value = value;
+	selectbox.options.add(optn);
+}
 
 </script>
 		<script type="text/javascript" src="/static/js/dropdown.js"></script>
@@ -55,7 +88,9 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 								{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="{{ category.name|slugify }}_tab"
 									class="tab"
 							   		href="#"
+									onclick= "fillDropdown('{{ category.name|cut:" "}}');"
 							   		title="{{ category.name }}">{{ category.name }}
+									
 								</a>
 							{% if not mobify %}</li>{% else %}</span>{% endif %}
 								{% else %}
@@ -75,26 +110,23 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 						<div class="filter">
 								<h3>Jump to</h3>
 								<div class="dropdown">
-									<select onChange="gotosection(value);">									
-								{% for rollup in project.category_rollups %}
-									{% for section in rollup.sections %}
-									<option value="#{{ section.name|slugify }}_section_{{choice}}">{{section.name}}</option>		
-									{% endfor %}
-								{% endfor %}										
+								<form  name="dropdownform">
+									<select name="sections" onChange="gotosection(value);">	]
 									</select>
+									</form>
 								</div>
 								<form name = "viewform" method='post' action="/client/{{client.path}}/{{project.path}}/"> 
-								<h3>View by</h3>
+								<!--h3>View by</h3-->
 								<div class="views">
-								    <input type = "image" name = "choice" value = "list" src = "/static/images/btn/list.png" >
-									<input type = "image" name = "choice" value = "grid" src = "/static/images/btn/grid.png" >
+								    <input type = "image" name = "choice" value = "list" title="List Layout" src = "/static/images/btn/list.png" >
+									<input type = "image" name = "choice" value = "grid" title="Grid Layout" src = "/static/images/btn/grid.png" >
 								</div>								
 								</form>
 								<h3 class="approved">Approved Design</h3>								
 						</div>
 					</div>									
 					<div id ="list_section">
-				<!-- place the div for tabs in the section (grid or list) currently displayed -->
+				<!-- place the div for tabs in the section (grid or list) that is currently displayed -->
 				{% ifequal choice 'list' %}
 				<div class="panes">
 				{% endifequal %}
