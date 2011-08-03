@@ -11,6 +11,9 @@
 
 {% block section_js %}
 <script type="text/javascript">
+$(function() {
+ $("ul.tabs").tabs("div.panes > div");
+});
 $(document).ready(function () {
 if ("{{choice}}"==="grid"){
 	show('#grid_section', '#list_section', "{{choice}}");}
@@ -21,6 +24,7 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 		<script type="text/javascript" src="/static/js/dropdown.js"></script>
 		<script type="text/javascript" src="/static/js/staging.js"></script>
 		<script type="text/javascript" src="/static/js/jquery.tabs.pack.js"></script>
+		<script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
 		<script type="text/javascript" src="/static/js/project.js"></script>
 	{% if user.is_staff %}
 		<script type="text/javascript" src="/static/js/admin_overlay.js"></script>
@@ -41,18 +45,22 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 	<div id="main">		
 		<div id="maincontent">
 			{% if project.categories %}
-				{% if not mobify %}<div class="subnav"><ul class="cat-buttons clear">{% else %}<p class="noBg">{% endif %}
+			
+			
+			
+				{% if not mobify %}<div class="subnav"><ul class="tabs cat-buttons clear">{% else %}<p class="noBg">{% endif %}
 						{% if mobify %}<span><a href="/home/">&laquo; Home</a></span>{%endif%}
 						{% for category in project.categories.all %}
-							{% if category.active %}
+							{% if category.active %}								
 								{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="{{ category.name|slugify }}_tab"
 									class="tab"
-							   		href="#{{ category.name|slugify }}_category_{{choice}}"
+							   		href="#"
 							   		title="{{ category.name }}">{{ category.name }}
 								</a>
 							{% if not mobify %}</li>{% else %}</span>{% endif %}
 								{% else %}
 									{% if user.is_staff %}
+									<!-- add tabs here -->
 										{% if not mobify %}<li>{% else %}<span>{% endif %}<a id="{{ category.name|slugify }}_tab"
 								   			class="tab inactive"
 								   			href="#{{ category.name|slugify }}_category_{{choice}}"
@@ -86,8 +94,13 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 						</div>
 					</div>									
 					<div id ="list_section">
+				<!-- place the div for tabs in the section (grid or list) currently displayed -->
+				{% ifequal choice 'list' %}
+				<div class="panes">
+				{% endifequal %}
 				{% for rollup in project.category_rollups %}
-						{% if rollup.sections %}							
+						{% if rollup.sections %}
+						
 						<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
 							{% for section in rollup.sections %}
 							<div class="contentblock section">
@@ -144,6 +157,7 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 							</div>
 							{% endfor %}
 						</div>	
+						
 						{% else %}
 							<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
 							<div class="contentblock">
@@ -152,8 +166,13 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 						</div>
 					{% endif %}
 				{% endfor %}
+				<!-- panes -->
+				{% ifequal choice 'list' %}				
+				</div> 
+				{% endifequal %}
 				</div>
 						<div id ="grid_section">
+						{% ifequal choice 'grid' %}	<div class="panes">{% endifequal %}
 						{% for rollup in project.category_rollups %}
 						{% if rollup.sections %}
 						<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">				
@@ -199,7 +218,8 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 							</div>
 							</div>
 							{% endfor %}
-						</div>
+						<!-- panes -->
+					{% ifequal choice 'grid' %}	</div> {% endifequal %}
 						{% else %}
 						
 						<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">
@@ -209,6 +229,7 @@ else {show('#list_section', '#grid_section', "{{choice}}");}
 						</div>
 						{% endif %}
 						{% endfor %}
+						</div> <!-- panes -->
 						</div>
 			{% else %}					
 				<p>No categories have been associated with this project yet.</p>
