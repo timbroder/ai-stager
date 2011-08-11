@@ -11,46 +11,29 @@
 
 {% block section_js %}
 <script type="text/javascript">
+
 // initialize page
 $(function() {
-// categories using jquery tabs
-$("ul.tabs").tabs("div.panes > div");
 // fill dropdown based on first category/tab
 fillDropdown('{{ project.categories.all.0.name|cut:" " }}');
 // show the list or grid section divs based on the user's viewing preference
-// the selected view is placed in the database and remembered as the preffered view
+// the selected view is placed in the database and remembered as the preferred view
 if ("{{choice}}"==="grid"){
-	show('#grid_section', '#list_section', "{{choice}}");}
-else {show('#list_section', '#grid_section', "{{choice}}");}
+	show('#grid_section', '#list_section');}
+else {show('#list_section', '#grid_section');}
 });
 
+// place sections in the dropdown given the select category
 function fillDropdown(categoryName){	
 	{% for rollup in project.category_rollups %}
 	if('{{ rollup.category.name|cut:" " }}'== categoryName){
 			removeAllOptions(document.dropdownform.sections);
+			//addOption(document.dropdownform.sections,"Select Section","");
 			{% for section in rollup.sections %}
 			addOption(document.dropdownform.sections, '{{section.name}}', '#{{ section.name|slugify }}_section_{{choice}}');
 			{% endfor %}
 			}
 	{% endfor %}				
-}
-// remove all the options and clear the drop down list
-function removeAllOptions(selectbox)
-{
-	var i;
-	for(i=selectbox.options.length-1;i>=0;i--)
-	{
-	selectbox.remove(i);
-	}
-}
-
-// add one option to a drop down list
-function addOption(selectbox,text,value )
-{
-	var optn = document.createElement("OPTION");
-	optn.text = text;
-	optn.value = value;
-	selectbox.options.add(optn);
 }
 
 </script>
@@ -74,202 +57,186 @@ function addOption(selectbox,text,value )
 {% endblock %}
 
 {% block main_content %}
-	{% block mobile_content %}
-	<div id="main">		
-		<div id="maincontent">
-			{% if project.categories %}
-			
-			
-			
-				{% if not mobify %}<div class="subnav"><ul class="tabs cat-buttons clear">{% else %}<p class="noBg">{% endif %}
-						{% if mobify %}<span><a href="/home/">&laquo; Home</a></span>{%endif%}
-						{% for category in project.categories.all %}
-							{% if category.active %}								
-								{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="{{ category.name|slugify }}_tab"
-									class="tab"
-							   		href="#"
-									onclick= "fillDropdown('{{ category.name|cut:" "}}');"
-							   		title="{{ category.name }}">{{ category.name }}
-									
-								</a>
-							{% if not mobify %}</li>{% else %}</span>{% endif %}
-								{% else %}
-									{% if user.is_staff %}
-									<!-- add tabs here -->
-										{% if not mobify %}<li>{% else %}<span>{% endif %}<a id="{{ category.name|slugify }}_tab"
-								   			class="tab inactive"
-								   			href="#{{ category.name|slugify }}_category_{{choice}}"
-								   			title="{{ category.name }}">{{ category.name }}
-										</a>
-									{% if not mobify %}</li>{% else %}</span>{% endif %}
-								{% endif %}
-							{% endif %}
-						{% endfor %}
-						{% if not mobify %}</ul></div>{% else %}</p>{% endif %}
-					<div  class="catblock">
-						<div class="filter">
-								<h3>Jump to</h3>
-								<div class="dropdown">
-								<form  name="dropdownform">
-									<select name="sections" onChange="gotosection(value);">	]
-									</select>
-									</form>
-								</div>
-								<form name = "viewform" method='post' action="/client/{{client.path}}/{{project.path}}/"> 
-								<!--h3>View by</h3-->
-								<div class="views">
-								    <input type = "image" name = "choice" value = "list" title="List Layout" src = "/static/images/btn/list.png" >
-									<input type = "image" name = "choice" value = "grid" title="Grid Layout" src = "/static/images/btn/grid.png" >
-								</div>								
-								</form>
-								<h3 class="approved">Approved Design</h3>								
+{% block mobile_content %}
+<div id="main">		
+	<div id="maincontent">
+		{% if project.categories.all %}
+		
+			{% if not mobify %}<div class="subnav"><ul class="tabs cat-buttons clear">{% else %}<p class="noBg">{% endif %}
+			{% if mobify %}<span><a href="/home/">&laquo; Home</a></span>{%endif%}
+			{% for category in project.categories.all %}
+				<!-- show all active categories. If user is staff show inactive categories also with css class 'inactive' -->
+				{% if category.active or user.is_staff %}								
+					{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="{{ category.name|slugify }}_tab"
+					class="tab 
+				{% endif %}
+				{% if not category.active and user.is_staff %}	inactive {% endif %}
+				{% if category.active or user.is_staff %}
+					"
+					href="#"
+					onclick= "fillDropdown('{{ category.name|cut:" "}}');"
+					title="{{ category.name }}">{{ category.name }}								
+					</a>
+					{% if not mobify %}</li>{% else %}</span>{% endif %}
+				{% endif %}
+			{% endfor %}
+			{% if not mobify %}</ul></div>{% else %}</p>{% endif %}
+			<div  class="catblock">
+				<div class="filter">
+						<h3>Jump to</h3>
+						<div class="dropdown">
+						<form  name="dropdownform">
+							<select name="sections" onChange="gotosection(value);">											
+							</select>
+							</form>
 						</div>
-					</div>									
-					<div id ="list_section">
-				<!-- place the div for tabs in the section (grid or list) that is currently displayed -->
-				{% ifequal choice 'list' %}
-				<div class="panes">
-				{% endifequal %}
-				{% for rollup in project.category_rollups %}
-						{% if rollup.sections %}
+						<h3>View by</h3>
+						<div class="views">
+							<input type = "image" name = "choice" value = "list" title="List Layout" src = "/static/images/btn/list.png" onclick="show('#list_section', '#grid_section');">
+							<input type = "image" name = "choice" value = "grid" title="Grid Layout" src = "/static/images/btn/grid.png" onclick="show('#grid_section','#list_section');">
+						</div>								
 						
-						<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
-							{% for section in rollup.sections %}
-							<div class="contentblock section">
-							<div id="{{ section.name|slugify }}_section_list">							
-							<p class="pm-subcat">{{ section.name }}:</p>
-										{% if section.description %}<p>{{ section.description }}</p>{% endif %}											
-								{% if section.links.all %}
-									<ul class="links">
-										{% for link in section.links.all %}
-										<li {% if link.file_link %} class='{{link.link|slice:"-3:"}}' {% endif %}>
-											<a href="{{ link.link }}" title="{{ link.name }}">
-												{{ link.name }}
-											</a>
-										</li>
+						<h3 class="approved">Approved Design</h3>								
+				</div>
+			</div>									
+			<div id ="list_section">
+			<!-- For tabs to work, only one instance of class 'panes' is allowed per page -->
+			{% ifequal choice 'list' %} <div class="panes">	{% endifequal %}
+			{% for rollup in project.category_rollups %}
+				{% if rollup.sections %}	
+					<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
+					{% for section in rollup.sections %}
+						<div class="contentblock section">
+						<div id="{{ section.name|slugify }}_section_list">							
+						<p class="pm-subcat">{{ section.name }}:</p>
+						{% if section.description %}<p>{{ section.description }}</p>{% endif %}											
+						{% if section.links.all %}
+							<ul class="links">
+								{% for link in section.links.all %}
+								<li {% if link.file_link %} class='{{link.link|slice:"-3:"}}' {% endif %}>
+									<a href="{{ link.link }}" title="{{ link.name }}">
+										{{ link.name }}
+									</a>
+								</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+						{% if section.comps.all %}
+							<ul class="links">
+								{% for comp in section.comps.all %}
+									{% include 'includes/comps.html' %}
+								{% endfor %}
+							</ul>
+						{% endif %}
+						{% if section.active_subsections %}
+							{% for subsection in section.active_subsections.all %}
+								<p class="pm-subcat">{{ subsection.name }}: </p>
+								{% if subsection.description %}<p>{{ subsection.description }}</p>{% endif %}
+									{% if subsection.links.all %}
+										<ul class="links">
+										{% for link in subsection.links.all %}
+											<li {% if link.file_link %} 
+													class='{{link.link|slice:"-3:"}}'
+												{% endif %}>
+												<a href="{{ link.link }}" title="{{ link.name }}">
+													{{ link.name }}
+												</a> 
+											</li>
 										{% endfor %}
-									</ul>
-								{% endif %}
-								{% if section.comps.all %}
+										</ul>
+									{% endif %}
+								{% if subsection.comps.all %}
 									<ul class="links">
-										{% for comp in section.comps.all %}
+										{% for comp in subsection.comps.all %}
 											{% include 'includes/comps.html' %}
 										{% endfor %}
 									</ul>
 								{% endif %}
-								{% if section.active_subsections %}
-								
-								
-									{% for subsection in section.active_subsections.all %}
-										<p class="pm-subcat">{{ subsection.name }}: </p>
-										{% if subsection.description %}<p>{{ subsection.description }}</p>{% endif %}
-											{% if subsection.links.all %}
-												<ul class="links">
-												{% for link in subsection.links.all %}
-												<li {% if link.file_link %} 
-														class='{{link.link|slice:"-3:"}}'
-													{% endif %}>
-													<a href="{{ link.link }}" title="{{ link.name }}">
-														{{ link.name }}
-													</a> 
-												</li>
-												{% endfor %}
-											</ul>
-											{% endif %}
-										{% if subsection.comps.all %}
-											<ul class="links">
-												{% for comp in subsection.comps.all %}
-													{% include 'includes/comps.html' %}
-												{% endfor %}
-											</ul>
-										{% endif %}
-									{% endfor %}
-								{% endif %}
-							</div>
-							</div>
 							{% endfor %}
-						</div>	
-						
-						{% else %}
-							<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
-							<div class="contentblock">
-								<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
-							</div>
-						</div>
-					{% endif %}
-				{% endfor %}
-				<!-- panes -->
-				{% ifequal choice 'list' %}				
-				</div> 
-				{% endifequal %}
-				</div>
-						<div id ="grid_section">
-						{% ifequal choice 'grid' %}	<div class="panes">{% endifequal %}
-						{% for rollup in project.category_rollups %}
-						{% if rollup.sections %}
-						<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">				
-							{% for section in rollup.sections %}
-							<div class="contentblock section">		
-							<div id="{{ section.name|slugify }}_section_grid">
-								<div class="lead clear">											
-									<h2>{{ section.name }}</h2>
-									{% if section.date %}
-									<div class="date">
-										{{ section.date|date:"m/d/Y" }}
-									</div>
-									{% endif %}
-								</div>
-								{% if section.description %}
-								<p class="pm-notes">{{ section.description }}</p>
-								{% endif %}								
-								<div class="grid clear">								
-								{% if section.comps.all %}
-									{% for comp in section.comps.all %}									
-									{% include 'includes/comps_grid.html' %}									
-										{% endfor %}
-								{% endif %} 								
-								</div>								
-								<div class="grid clear">									
-									{% if section.active_subsections %}
-										{% for subsection in section.active_subsections.all %}
-											{% if subsection.comps.all %}
-											<!-- TODO: style this h2 -->
-											<h2>{{subsection.name}}</h2>
-										{% if subsection.description %}	
-										<p class="pm-notes">{{subsection.description}}</p>
-										{% endif %}										
-										<div class="clear">
-												{% for comp in subsection.comps.all %}
-													{% include 'includes/comps_grid.html' %}
-												{% endfor %}
-										</div>
-										{% endif %}
-										{% endfor %}
-									{% endif %}
-								</div>								
-							</div>
-							</div>
-							{% endfor %}
-						<!-- panes -->
-					{% ifequal choice 'grid' %}	</div> {% endifequal %}
-						{% else %}
-						
-						<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">
-							<div class="contentblock">
-								<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
-							</div>
-						</div>
 						{% endif %}
-						{% endfor %}
-						</div> <!-- panes -->
 						</div>
-			{% else %}					
-				<p>No categories have been associated with this project yet.</p>
-		</div>	
-			{% endif %}
-		</div>		
-</div>
+						</div>
+					{% endfor %}
+					</div>					
+				{% else %}
+					<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
+					<div class="contentblock">
+						<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
+					</div>
+					</div>
+				{% endif %}
+		{% endfor %}
+		<!-- panes -->
+		{% ifequal choice 'list' %}	</div> {% endifequal %}
+			</div>
+				<div id ="grid_section">
+				{% ifequal choice 'grid' %}	<div class="panes">{% endifequal %}
+				{% for rollup in project.category_rollups %}
+				{% if rollup.sections %}
+				<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">				
+					{% for section in rollup.sections %}
+					<div class="contentblock section">		
+					<div id="{{ section.name|slugify }}_section_grid">
+						<div class="lead clear">											
+							<h2>{{ section.name }}</h2>
+							{% if section.date %}
+							<div class="date">
+								{{ section.date|date:"m/d/Y" }}
+							</div>
+							{% endif %}
+						</div>
+						{% if section.description %}
+						<p class="pm-notes">{{ section.description }}</p>
+						{% endif %}								
+						<div class="grid clear">								
+						{% if section.comps.all %}
+							{% for comp in section.comps.all %}									
+							{% include 'includes/comps_grid.html' %}									
+								{% endfor %}
+						{% endif %} 								
+						</div>								
+						<div class="grid clear">									
+							{% if section.active_subsections %}
+								{% for subsection in section.active_subsections.all %}
+									{% if subsection.comps.all %}
+									<!-- TODO: style this h2 -->
+									<h2>{{subsection.name}}</h2>
+								{% if subsection.description %}	
+								<p class="pm-notes">{{subsection.description}}</p>
+								{% endif %}										
+								<div class="clear">
+										{% for comp in subsection.comps.all %}
+											{% include 'includes/comps_grid.html' %}
+										{% endfor %}
+								</div>
+								{% endif %}
+								{% endfor %}
+							{% endif %}
+						</div>								
+					</div>
+					</div>
+					{% endfor %}
+				</div>
+			{% ifequal choice 'grid' %}	<!-- panes --> </div> {% endifequal %}
+				{% else %}
+				
+				<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">
+					<div class="contentblock">
+						<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
+					</div>
+				</div>
+				{% endif %}
+				{% endfor %}
+				</div> 
+				
+		{% else %}		
+		<!-- this is not displaying for empty projects -->
+		<p>No categories have been associated with this project yet.</p>
+		{% endif %}
+	</div>	
 </div>		
+
+		
 
 		<!-- Stager 2.0 section 
 		<div class="admin" id="edit_slide">
