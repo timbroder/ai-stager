@@ -45,13 +45,11 @@ def project(request, client_path, project_path):
 	    raise Http404
     # display the view that matches the user's stored view preference, based on their last selection				
     u = request.user
-    choice= ViewChoice.objects.get(id=UserPreference.objects.get(user=u.id).default_display_id).default_d 
-    
+    choice= ViewChoice.objects.get(id=UserPreference.objects.get(user=u.id).default_display_id).default_d     
     context = {'project':project, 'client':client, 'user':request.user, 'choice':choice, 'check':check_mobile(request),'mobify':mobify(request)}
     # update the grid/list view based on the users selection
     if request.is_ajax():
 	choice= request.GET.get('choice', False)
-	print choice
 	if choice and choice == 'grid' or choice == 'list':
 	    # store the user's preference in the database			
 	    u.userschoices.default_display = ViewChoice.objects.get(default_d=choice)

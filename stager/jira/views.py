@@ -60,7 +60,6 @@ def view_project(request, client_path, project_path, jira_key):
                 pad = test[1]
                 
             jira.key = "%s-%s" % (test[0],pad)
-            print jira.key   
             
         
         return render_to_response('jira_project.html', {'project':project, 

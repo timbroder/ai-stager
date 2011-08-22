@@ -52,7 +52,6 @@ function selectSection(value){
 }
 </script>
 		<script type="text/javascript" src="/static/js/dropdown.js"></script>
-		<script type="text/javascript" src="/static/js/staging.js"></script>
 		<script type="text/javascript" src="/static/js/jquery.tabs.pack.js"></script>
 		<script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
 		<script type="text/javascript" src="/static/js/project.js"></script>
@@ -81,8 +80,7 @@ function selectSection(value){
 			<!-- show all active categories. If user is staff show inactive categories also with css class 'inactive' -->
 			{% for category in project.categories.all %}	
 				{% if category.active or user.is_staff %}								
-					{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="{{ category.name|slugify }}_tab"
-					class="tab 
+					{% if not mobify %}<li>{% else %}<span>| {% endif %}<a class="tab 
 				{% endif %}
 				{% if not category.active and user.is_staff %}	inactive {% endif %}
 				{% if category.active or user.is_staff %}

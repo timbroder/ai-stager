@@ -1,8 +1,7 @@
-<!-- For tabs to work, only one instance of class 'panes' is allowed per page -->
-			{# ifequal choice 'list' #} <div class="paneslist">	{# endifequal #}
+			<div class="paneslist">	
 			{% for rollup in project.category_rollups %}
 				{% if rollup.sections %}	
-					<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
+					<div class="catblock">
 					{% for section in rollup.sections %}
 						<div class="contentblock section">						
 						<div id="{{ forloop.counter }}_list">
@@ -57,14 +56,13 @@
 					{% endfor %}
 					</div>					
 				{% else %}
-					<div id="{{ rollup.category.name|slugify }}_category_list" class="catblock">
+					<div class="catblock">
 					<div class="contentblock">
 						<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
 					</div>
 					</div>
 				{% endif %}
 		{% endfor %}
-		
-		{# ifequal choice 'list' #}	</div> <!-- panes -->{# endifequal #}
+		</div> 
 		
 			

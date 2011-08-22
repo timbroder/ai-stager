@@ -1,4 +1,5 @@
 /* staging javascript */
+/*
 $(document).ready(function () {
 	$('select.dropdown').dropdown({onchange:function(e){
 		setTimeout(function(){
@@ -17,4 +18,4 @@ $(document).ready(function () {
 
 	$('#maincontent .subnav').tabs();
 });
-
+*/
