@@ -1,0 +1,60 @@
+<!-- For tabs to work, only one instance of class 'panes' is allowed per page -->
+{# ifequal choice 'grid' #}	<div class="panesgrid">{# endifequal #}
+				{% for rollup in project.category_rollups %}
+				{% if rollup.sections %}
+				<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">				
+					{% for section in rollup.sections %}
+					<div class="contentblock section">	
+					<div id="{{ forloop.counter }}_grid">
+						<div class="lead clear">											
+							<h2>{{ section.name }}</h2>
+							{% if section.date %}
+							<div class="date">
+								{{ section.date|date:"m/d/Y" }}
+							</div>
+							{% endif %}
+						</div>
+						{% if section.description %}
+						<p class="pm-notes">{{ section.description }}</p>
+						{% endif %}								
+						<div class="grid clear">								
+						{% if section.comps.all %}
+							{% for comp in section.comps.all %}									
+							{% include 'includes/comps_grid.html' %}									
+								{% endfor %}
+						{% endif %} 								
+						</div>								
+						<div class="grid clear">									
+							{% if section.active_subsections %}
+								{% for subsection in section.active_subsections.all %}
+									{% if subsection.comps.all %}
+									<!-- TODO: style this h2 -->
+									<h2>{{subsection.name}}</h2>
+								{% if subsection.description %}	
+								<p class="pm-notes">{{subsection.description}}</p>
+								{% endif %}										
+								<div class="clear">
+										{% for comp in subsection.comps.all %}
+											{% include 'includes/comps_grid.html' %}
+										{% endfor %}
+								</div>
+								{% endif %}
+								{% endfor %}
+							{% endif %}
+						</div>								
+					</div>
+					</div>
+					{% endfor %}
+				</div>
+			
+				{% else %}
+				
+				<div id="{{ rollup.category.name|slugify }}_category_grid" class="catblock">
+					<div class="contentblock">
+						<p class="nodata">Nothing has been posted to {{ rollup.category.name }} yet.</p>
+					</div>
+				</div>
+				{% endif %}
+				{% endfor %}
+				{# ifequal choice 'grid' #}	<!-- panes --> </div> {# endifequal #}
+			

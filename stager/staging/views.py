@@ -3,7 +3,7 @@ from stager.staging.models import *
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 import django.contrib.auth as auth
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.views.static import serve
 import re
 
@@ -31,29 +31,36 @@ def mobify(request):
 		return mobify
 
 from models import ViewChoice
+from django.template import Context, Template
 @login_required
 def project(request, client_path, project_path):
     """
     Gets the project view for the specified project.
     """
-    # display the view that matches the user's selection				
+    # for the context
+    try:
+	    client = Client.objects.get(path=client_path)
+	    project = client.projects.get(path=project_path)	    
+    except Client.DoesNotExist, Project.DoesNotExist:
+	    raise Http404
+    # display the view that matches the user's stored view preference, based on their last selection				
     u = request.user
     choice= ViewChoice.objects.get(id=UserPreference.objects.get(user=u.id).default_display_id).default_d 
     
-    if request.method=='POST':
-        # display the choice that user selected instead of their database value
-	choice= request.POST.get('choice', False)
+    context = {'project':project, 'client':client, 'user':request.user, 'choice':choice, 'check':check_mobile(request),'mobify':mobify(request)}
+    # update the grid/list view based on the users selection
+    if request.is_ajax():
+	choice= request.GET.get('choice', False)
+	print choice
 	if choice and choice == 'grid' or choice == 'list':
 	    # store the user's preference in the database			
 	    u.userschoices.default_display = ViewChoice.objects.get(default_d=choice)
 	    u.userschoices.save()
-				
-    try:
-	client = Client.objects.get(path=client_path)
-	project = client.projects.get(path=project_path)
-	return render_to_response('project.html', {'project':project, 'client':client, 'user':request.user, 'choice':choice, 'check':check_mobile(request),'mobify':mobify(request)})
-    except Client.DoesNotExist, Project.DoesNotExist:
-	raise Http404
+        return HttpResponse()
+    
+    else: 			
+        return render_to_response('project.html', context)
+       
 
 def login(request):
     """

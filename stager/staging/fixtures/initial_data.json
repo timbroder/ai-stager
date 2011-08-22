@@ -1,0 +1,16 @@
+[
+  {
+    "model": "staging.ViewChoice",
+    "pk": 1,
+    "fields": {
+      "default_d": "grid"
+    }
+  },
+  {
+    "model": "staging.ViewChoice",
+    "pk": 2,
+    "fields": {
+      "default_d": "list"
+    }
+  }
+]

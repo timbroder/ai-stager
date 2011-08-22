@@ -15,7 +15,7 @@
 		<div id="otherprojects">
 			<div class="header">Other Projects</div>
 			<div id="widgetwrap">
-				<select id="project_switcher" class="dropdown" name="site" {% if mobify %}onchange="document.location = this.value" {% endif %}>
+				<select id="project_switcher" class="dropdown" name="site" onchange="document.location = this.value" >
 					{% for project_option in client.projects.all %}
 					<option value="/client/{{ project.client.path }}/{{ project_option.path }}/"  {% ifequal project project_option %}selected='selected'{% endifequal %}>{{ project_option.name }}</option>
 					{% endfor %}
