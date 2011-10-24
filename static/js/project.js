@@ -1,12 +1,14 @@
-// additional javascript functions are embedded in the project.html file
+/* additional javascript functions are embedded in the project.html file */
 
-function show(id_to_show, id_to_hide){
+function show(id_to_show, id_to_hide)
+{
 	$(id_to_show).show();
 	$(id_to_hide).hide();
 	}
 
 
-function gotosection(value){
+function gotosection(value)
+{
 	window.location.href = value;
 }
 // remove all the options and clear the drop down list
@@ -29,8 +31,9 @@ function addOption(selectbox,text,value )
 }
 
 // update the users preference that is stored in the database when the user switches
-// between grid and list view
-function show_ajax(viewchoice, client, projectpath, id_to_show, id_to_hide){
+// between grid and list view 
+function show_ajax(viewchoice, client, projectpath, id_to_show, id_to_hide)
+{
 	$.ajax({
 			url: "/client/"+client+"/"+projectpath+"/",
 			data: {choice: viewchoice},
@@ -39,14 +42,11 @@ function show_ajax(viewchoice, client, projectpath, id_to_show, id_to_hide){
 				window.varChoice = viewchoice;
 				oldSection = window.varCurrentSection;
 				$(id_to_hide).hide();
-				// open the newly selected grid or list view on the last viewed category tab
-				gotosection('#'+window.currentCategory);				
-				// fill the dropdown for the current category/tab and then restore the old section global value
+				// open the newly selected grid or list view on the category/tab that was last viewed
+				gotosection('#'+window.currentCategory);
 				fillDropdown(window.currentCategory, window.varChoice);	
-								
-				// show the new div
 				$(id_to_show).show();
-				// construct the tabs
+				// construct the jquery tools tabs
 				$("ul.tabs").tabs("div.panes"+viewchoice +" > div");								
 				// jump to show the last viewed section unless it was the first section
 				// in which case it will be visible at the top of the page automatically, no need to jump to it
@@ -57,12 +57,7 @@ function show_ajax(viewchoice, client, projectpath, id_to_show, id_to_hide){
 					// save the oldSection because fillDropdown() has changed it
 					window.varCurrentSection = oldSection;
 				}
-				
-			
 			}
-			
 	});
-	
-	
 }
 

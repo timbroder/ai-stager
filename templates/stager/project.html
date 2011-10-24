@@ -12,7 +12,7 @@
 {% block section_js %}
 <script type="text/javascript">
 
-// initialize page
+// function to initialize page
 $(function() {
 // The first category tab is shown on page load. Fill the dropdown accordingly.
 fillDropdown('{{ project.categories.all.0.name|slugify }}', '{{choice}}');
@@ -24,13 +24,13 @@ else {show('#list_section', '#grid_section');}
 
 window.varChoice = '{{choice}}';
 window.varCurrentSection = '#1_{{choice}}';
-// categories using jquery tabs
+
+// categories using jquery tools - tabs
 $("ul.tabs").tabs("div.panes{{choice}} > div");
 });
 
 // place sections in the dropdown given the selected category
-function fillDropdown(categoryName, choice){	
-// save the current category as a global variable when the user switches tabs
+function fillDropdown(categoryName, choice){
 window.currentCategory = categoryName;
 	{% for rollup in project.category_rollups %}
 	
@@ -41,7 +41,6 @@ window.currentCategory = categoryName;
 					window.varCurrentSection = '#1_'+choice;
 				{% endif %}
 				addOption(document.dropdownform.sections, '{{section.name}}', '#{{forloop.counter}}_'+choice);
-				//addOption(document.dropdownform.sections, '{{section.name}}', '#{{ section.name|slugify }}_section_' + choice);
 			{% endfor %}
 			}
 	{% endfor %}				
@@ -52,7 +51,6 @@ function selectSection(value){
 }
 </script>
 		<script type="text/javascript" src="/static/js/dropdown.js"></script>
-		<script type="text/javascript" src="/static/js/jquery.tabs.pack.js"></script>
 		<script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
 		<script type="text/javascript" src="/static/js/project.js"></script>
 	{% if user.is_staff %}
@@ -80,7 +78,8 @@ function selectSection(value){
 			<!-- show all active categories. If user is staff show inactive categories also with css class 'inactive' -->
 			{% for category in project.categories.all %}	
 				{% if category.active or user.is_staff %}								
-					{% if not mobify %}<li>{% else %}<span>| {% endif %}<a class="tab 
+					{% if not mobify %}<li>{% else %}<span>| {% endif %}<a id="{{category.name|slugify}}_tab" 
+					class="tab 
 				{% endif %}
 				{% if not category.active and user.is_staff %}	inactive {% endif %}
 				{% if category.active or user.is_staff %}
