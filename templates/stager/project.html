@@ -17,38 +17,55 @@ $(function() {
 // The first category tab is shown on page load. Fill the dropdown accordingly.
 fillDropdown('{{ project.categories.all.0.name|slugify }}', '{{choice}}');
 // show the list or grid section divs based on the user's viewing preference
-// the selected view is placed in the database and remembered as the preferred view
+// the last selected view was placed in the database and is remembered as the preferred view
 if ("{{choice}}"==="grid"){
 	show('#grid_section', '#list_section');}
 else {show('#list_section', '#grid_section');}
-
-window.varChoice = '{{choice}}';
-window.varCurrentSection = '#1_{{choice}}';
+// global vars
+VAR_CHOICE = '{{choice}}';
+VAR_CURRENT_SECTION = '#1_{{choice}}';
 
 // categories using jquery tools - tabs
 $("ul.tabs").tabs("div.panes{{choice}} > div");
+
+generateClickEvents();
+$('#list_choice_input').click(function(){
+	show_ajax('list', '{{client}}','{{project.path}}', '#list_section', '#grid_section');
+});
+$('#grid_choice_input').click(function(){
+	show_ajax('grid', '{{client}}','{{project.path}}', '#grid_section', '#list_section');
+});
+$('#select_section').change(function(){
+	selectSection($(this).val());
+});
 });
 
 // place sections in the dropdown given the selected category
 function fillDropdown(categoryName, choice){
-window.currentCategory = categoryName;
-	{% for rollup in project.category_rollups %}
-	
-	if('{{ rollup.category.name|slugify }}'== categoryName){
+	VAR_CURRENT_CATEGORY = categoryName;
+	{% for rollup in project.category_rollups %}	
+		if('{{ rollup.category.name|slugify }}'== categoryName){
 			removeAllOptions(document.dropdownform.sections);
 			{% for section in rollup.sections %}
 				{% if forloop.first %}
-					window.varCurrentSection = '#1_'+choice;
+					VAR_CURRENT_SECTION = '#1_'+choice;
 				{% endif %}
 				addOption(document.dropdownform.sections, '{{section.name}}', '#{{forloop.counter}}_'+choice);
 			{% endfor %}
-			}
+		}
 	{% endfor %}				
 }
-function selectSection(value){
-	window.varCurrentSection = value;
-	gotosection(value);
+
+// generate an on-click event for each category tab
+function generateClickEvents(){	
+	{% for category in project.categories.all %}
+		$('#{{category.name|slugify}}_tab').click(function(){
+			fillDropdown('{{ category.name|slugify}}', VAR_CHOICE);
+			return false;			
+	});
+	{% endfor %}
 }
+
 </script>
 		<script type="text/javascript" src="/static/js/dropdown.js"></script>
 		<script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
@@ -85,7 +102,7 @@ function selectSection(value){
 				{% if category.active or user.is_staff %}
 					"
 					href="#{{ category.name|slugify }}"
-					onclick= "fillDropdown('{{ category.name|slugify}}', window.varChoice);"
+					
 					title="{{ category.name }}">{{ category.name }}								
 					</a>
 					{% if not mobify %}</li>{% else %}</span>{% endif %}
@@ -97,14 +114,14 @@ function selectSection(value){
 						<h3>Jump to</h3>
 						<div class="dropdown">
 						<form  name="dropdownform" >
-							<select name="sections" id='select_section' onChange="selectSection(value);">											
+							<select name="sections" id='select_section' >											
 							</select>
 							</form>
 						</div>
 						<h3>View by</h3>
 						<div class="views">
-							<input type = "image" name = "choice" value = "list" title="List Layout" src = "/static/images/btn/list.png" onclick="show_ajax('list', '{{client}}','{{project.path}}', '#list_section', '#grid_section');">
-							<input type = "image" name = "choice" value = "grid" title="Grid Layout" src = "/static/images/btn/grid.png" onclick="show_ajax('grid', '{{client}}', '{{project.path}}', '#grid_section','#list_section');">
+							<input type = "image" name = "choice" value = "list" title="List Layout" id="list_choice_input" src = "/static/images/btn/list.png" >
+							<input type = "image" name = "choice" value = "grid" title="Grid Layout" id="grid_choice_input" src = "/static/images/btn/grid.png" >
 						</div>	
 						<h3 class="approved">Approved Design</h3>								
 				</div>
