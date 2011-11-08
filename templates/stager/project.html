@@ -21,30 +21,30 @@
 	
 // function to initialize page
 $(function() {
-// The first category tab is shown on page load. Fill the dropdown accordingly.
-fillDropdown('{{ project.categories.all.0.name|slugify }}', '{{choice}}');
-// show the list or grid section divs based on the user's viewing preference
-// the last selected view was placed in the database and is remembered as the preferred view
-if ("{{choice}}"==="grid"){
-	show('#grid_section', '#list_section');}
-else {show('#list_section', '#grid_section');}
-// global vars
-VAR_CHOICE = '{{choice}}';
-VAR_CURRENT_SECTION = '#1_{{choice}}';
-
-// categories using jquery tools - tabs
-$("ul.tabs").tabs("div.panes{{choice}} > div);
-
-generateClickEvents();
-$('#list_choice_input').click(function(){
-	show_ajax('list', '{{client}}','{{project.path}}', '#list_section', '#grid_section');
-});
-$('#grid_choice_input').click(function(){
-	show_ajax('grid', '{{client}}','{{project.path}}', '#grid_section', '#list_section');
-});
-$('#select_section').change(function(){
-	selectSection($(this).val());
-});
+	// The first category tab is shown on page load. Fill the dropdown accordingly.
+	fillDropdown('{{ project.categories.all.0.name|slugify }}', '{{choice}}');
+	// show the list or grid section divs based on the user's viewing preference
+	// the last selected view was placed in the database and is remembered as the preferred view
+	if ("{{choice}}"==="grid"){
+		show('#grid_section', '#list_section');}
+	else {show('#list_section', '#grid_section');}
+	// global vars
+	VAR_CHOICE = '{{choice}}';
+	VAR_CURRENT_SECTION = '#1_{{choice}}';
+	
+	// categories using jquery tools - tabs
+	$("ul.tabs").tabs("div.panes{{choice}} > div");
+	
+	generateClickEvents();
+	$('#list_choice_input').click(function(){
+		show_ajax('list', '{{client}}','{{project.path}}', '#list_section', '#grid_section');
+	});
+	$('#grid_choice_input').click(function(){
+		show_ajax('grid', '{{client}}','{{project.path}}', '#grid_section', '#list_section');
+	});
+	$('#select_section').change(function(){
+		selectSection($(this).val());
+	});
 });
 
 // place sections in the dropdown given the selected category
