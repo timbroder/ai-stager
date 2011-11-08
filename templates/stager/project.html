@@ -10,8 +10,15 @@
 {% endblock %}
 
 {% block section_js %}
+<script type="text/javascript" src="/static/js/dropdown.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="/static/js/project.js"></script>	
+{% if user.is_staff %}
+	<script type="text/javascript" src="/static/js/admin_overlay.js"></script>
+{% endif %}
+	
 <script type="text/javascript">
-
+	
 // function to initialize page
 $(function() {
 // The first category tab is shown on page load. Fill the dropdown accordingly.
@@ -26,7 +33,7 @@ VAR_CHOICE = '{{choice}}';
 VAR_CURRENT_SECTION = '#1_{{choice}}';
 
 // categories using jquery tools - tabs
-$("ul.tabs").tabs("div.panes{{choice}} > div");
+$("ul.tabs").tabs("div.panes{{choice}} > div);
 
 generateClickEvents();
 $('#list_choice_input').click(function(){
@@ -66,13 +73,7 @@ function generateClickEvents(){
 	{% endfor %}
 }
 
-</script>
-		<script type="text/javascript" src="/static/js/dropdown.js"></script>
-		<script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
-		<script type="text/javascript" src="/static/js/project.js"></script>
-	{% if user.is_staff %}
-		<script type="text/javascript" src="/static/js/admin_overlay.js"></script>
-	{% endif %}
+</script>		
 {% endblock %}
 
 {% block title %}{{ client.name }} {% endblock %}
