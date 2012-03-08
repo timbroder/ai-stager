@@ -4,7 +4,7 @@
 		
 		<link href="{{ MEDIA_URL }}/static/css/slides.css" rel="stylesheet" type="text/css" />
 		<style type="text/css">
-			
+			/*
 			body {
 				background: {% if slide.background %} transparent  {% endif %} url('{{MEDIA_URL}}/static/{{slide.background}}') repeat-x left top;
 				background-color: {{ slide.background_color }};
@@ -14,6 +14,7 @@
 				
 				{% if slide.alignment %}background-position: top {{slide.alignment }};{% else %}background-position: top center;{% endif %} no-repeat;
 			}
+			*/
 		</style>
 {% endblock %}
 
@@ -50,7 +51,7 @@
 			{% if mobify %}
 			{% thumbnail slide.image "320x99999" as im %}
 			<a href="{{next}}"><img src='{{im.url}}' /></a>
-			{% endthumbnail %}
+			
 			{%else%}
 			<a href="{{next}}"><img src='{{MEDIA_URL}}/static/{{ slide.image }}' /></a>
 			{% endif %}

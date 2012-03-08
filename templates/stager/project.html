@@ -38,9 +38,11 @@ $(function() {
 	generateClickEvents();
 	$('#list_choice_input').click(function(){
 		show_ajax('list', '{{client}}','{{project.path}}', '#list_section', '#grid_section');
+		return false;
 	});
 	$('#grid_choice_input').click(function(){
 		show_ajax('grid', '{{client}}','{{project.path}}', '#grid_section', '#list_section');
+		return false;
 	});
 	$('#select_section').change(function(){
 		selectSection($(this).val());
@@ -121,8 +123,8 @@ function generateClickEvents(){
 						</div>
 						<h3>View by</h3>
 						<div class="views">
-							<input type = "image" name = "choice" value = "list" title="List Layout" id="list_choice_input" src = "/static/images/btn/list.png" >
-							<input type = "image" name = "choice" value = "grid" title="Grid Layout" id="grid_choice_input" src = "/static/images/btn/grid.png" >
+							<a href="#" id="list_choice_input">List Layout</a>
+							<a href="#" id="grid_choice_input">Grid Layout</a>
 						</div>	
 						<h3 class="approved">Approved Design</h3>								
 				</div>

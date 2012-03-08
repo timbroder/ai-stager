@@ -33,12 +33,99 @@ ol,ul,menu{list-style:none;}
 del,s,strike{text-decoration:line-through;}
 object,embed,applet{display:block;}
 /* ======================================================================================= */
+ /* FONTFACE*/
+ @font-face {
+    font-family: 'AkzidenzGroteskBQCondensedRg';
+    src: url('/static/fonts/akzidenzgrotesk-cond-webfont.eot');
+    src: url('/static/fonts/akzidenzgrotesk-cond-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/akzidenzgrotesk-cond-webfont.woff') format('woff'),
+         url('/static/fonts/akzidenzgrotesk-cond-webfont.ttf') format('truetype'),
+         url('/static/fonts/akzidenzgrotesk-cond-webfont.svg#AkzidenzGroteskBQCondensedRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
+@font-face {
+    font-family: 'AkzidenzGroteskBQLightCondeRg';
+    src: url('/static/fonts/akzidenzgrotesk-lightcond-webfont.eot');
+    src: url('/static/fonts/akzidenzgrotesk-lightcond-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/akzidenzgrotesk-lightcond-webfont.woff') format('woff'),
+         url('/static/fonts/akzidenzgrotesk-lightcond-webfont.ttf') format('truetype'),
+         url('/static/fonts/akzidenzgrotesk-lightcond-webfont.svg#AkzidenzGroteskBQLightCondeRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AkzidenzGroteskBQCondensedMd';
+    src: url('/static/fonts/akzidenzgrotesk-mediumcond-webfont.eot');
+    src: url('/static/fonts/akzidenzgrotesk-mediumcond-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/akzidenzgrotesk-mediumcond-webfont.woff') format('woff'),
+         url('/static/fonts/akzidenzgrotesk-mediumcond-webfont.ttf') format('truetype'),
+         url('/static/fonts/akzidenzgrotesk-mediumcond-webfont.svg#AkzidenzGroteskBQCondensedMd') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AkzidenzGroteskBQCondensedBd';
+    src: url('/static/fonts/akzidenzgrotesk-boldcond-webfont.eot');
+    src: url('/static/fonts/akzidenzgrotesk-boldcond-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/akzidenzgrotesk-boldcond-webfont.woff') format('woff'),
+         url('/static/fonts/akzidenzgrotesk-boldcond-webfont.ttf') format('truetype'),
+         url('/static/fonts/akzidenzgrotesk-boldcond-webfont.svg#AkzidenzGroteskBQCondensedBd') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PTSansRegular';
+    src: url('/static/fonts/ptsans-regular-webfont.eot');
+    src: url('/static/fonts/ptsans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/ptsans-regular-webfont.woff') format('woff'),
+         url('/static/fonts/ptsans-regular-webfont.ttf') format('truetype'),
+         url('/static/fonts/ptsans-regular-webfont.svg#PTSansRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PTSansItalic';
+    src: url('/static/fonts/ptsans-italic-webfont.eot');
+    src: url('/static/fonts/ptsans-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/ptsans-italic-webfont.woff') format('woff'),
+         url('/static/fonts/ptsans-italic-webfont.ttf') format('truetype'),
+         url('/static/fonts/ptsans-italic-webfont.svg#PTSansItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PTSansBold';
+    src: url('/static/fonts/ptsans-bold-webfont.eot');
+    src: url('/static/fonts/ptsans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/ptsans-bold-webfont.woff') format('woff'),
+         url('/static/fonts/ptsans-bold-webfont.ttf') format('truetype'),
+         url('/static/fonts/ptsans-bold-webfont.svg#PTSansBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PTSansBoldItalic';
+    src: url('/static/fonts/ptsans-bolditalic-webfont.eot');
+    src: url('/static/fonts/ptsans-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/ptsans-bolditalic-webfont.woff') format('woff'),
+         url('/static/fonts/ptsans-bolditalic-webfont.ttf') format('truetype'),
+         url('/static/fonts/ptsans-bolditalic-webfont.svg#PTSansBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* base ================================================================================= */
 div#project_switcher_panel {float:right;}
 
-body { background: #fbfbfb; }
+body {background: url("/static/images/headerBgFade.png") no-repeat scroll center top transparent;}
 
 a {
 	color: #1e99c8;
@@ -64,7 +151,6 @@ a:hover {
 
 }
 #mainwrap { 
-	background: #fff; 
 	padding: 0 0 50px 0;
 }
 #main {
@@ -82,13 +168,22 @@ a:hover {
 	width: 670px;
 }
 #footer {
-	padding: 20px 0 100px 0;
+	height:82px;
+	background:#434345;
+	
+}
+#footer .wrapper{
+	background: url("/static/images/logo_footer.png") no-repeat scroll right 22px transparent;
+	height:100%;
 }
 	#footer p {
-		font-family: georgia, arial, sans-serif;
-		color: #b0b1b1;
-		font-size: 1.1em;
-		text-align: right;
+		color: #C7C7C8;
+		font-family: 'PTSansRegular',arial;
+		font-size: 13px;
+		line-height: 1;
+		float:right;
+		width:266px;
+		padding-top:22px;
 	}
 #masthead {
 	height: 160px;
@@ -139,14 +234,19 @@ a:hover {
 	#sidebar #project-links {
 		padding-top: 36px;
 	}
-	#sidebar h3 {
-		color: #252525;
-		font-size: 1.6em;
-		text-transform: uppercase;
-		border-bottom: 1px solid #dadada;
-		padding-bottom: 4px; 
-		margin-bottom: 10px;
+	#sidebar h3,.lead h2, .contentblock p.pm-subcat {
+	
+		
+		
+		 border-bottom: 1px solid #D9D9DA;
+    color: #434345;
+    font-family: 'AkzidenzGroteskBQCondensedRg',arial;
+    font-size: 22px;
+    padding-bottom: 5px;
+	margin-bottom: 10px;
+		
 	}
+	.contentblock p.pm-subcat {line-height:25px;padding-bottom:4px;margin-bottom: 5px;}
 		#sidebar h3 span { text-transform: none; }
 		#sidebar #project-links a { color: #1e99c8; }
 	#sidebar .contact-block {
@@ -222,9 +322,10 @@ a:hover {
 	margin: 0 auto;
 	position: relative;
 }
+#mainwrap .wrapper { min-height:200px;
+}
 #header {
-	background: #f9f9f9;
-	height: 105px;
+	height: 102px; background: url("/static/images/headerBgFade.png") no-repeat scroll center top #fbfbfb;
 }
 	#header .wrapper {
 		height: 96px;
@@ -232,11 +333,25 @@ a:hover {
 	}
 	#header #logo {
 		float: left;
+		padding-top:40px;
+	}
+	#header #logo a{
+		background: url("/static/images/logo.png") no-repeat scroll center top transparent;
+		display:block;
+		width:79px;
+		height:66px;	
+	}
+	#header #logo img{
+		display:none;
 	}
 	#header  h1 {
-		color: #252525;
-		font-size: 4.0em;
-		margin: 14px 0 0 0;
+		font-size: 70px;
+		
+		color: #434345;
+		font-family: 'AkzidenzGroteskBQCondensedMd',arial;
+		margin-bottom: 0;
+		padding: 5px 0 0 120px;
+		line-height:60px;
 	}
 	#header #lead {
 		float: left;
@@ -246,9 +361,11 @@ a:hover {
 		position: relative;
 	}	
 		#header #lead em {
-			color: #252525;
+			color: #898989;
 			font-size: 1.6em;
-			font-style: normal;
+			margin-bottom: 0;
+			padding-left: 120px;
+			font-style:normal;
 		}	
 	#header #nav_utility {
 		position: absolute;
@@ -323,26 +440,46 @@ a:hover {
 }
 #project_nav {
 	position: absolute;
-	left: 450px;
-	top: 35px;
+	right: 0;
+	top: 10px;
 	z-index: 1000;
+	width:230px;
 }
 #otherprojects {
 	position: relative;
 }	
 	#otherprojects .header {
-		color: #252525;
-		font-size: 1.6em;
-		text-transform: uppercase;
-		margin: 0 0 1px 0;
+		color: #101010;
+		font-size: 23px;
+		
+		font-family: 'AkzidenzGroteskBQCondensedRg',arial;
 	}
 	#otherprojects img {
 		padding-bottom: 8px;
 	}
-	#otherprojects #widgetwrap {
-		background: #fff url(/static/images/select-bg.png) top left no-repeat;
-		border: 1px solid #dadada;
+	
+	#otherprojects #widgetwrap select, .catblock .filter .dropdown selec{
+		background: #ebebec;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ebebec');
+		background: -webkit-gradient(linear, top, bottom, from(#fff), to(#ebebec));
+		background: -moz-linear-gradient(top, #fff,  #ebebec);
+		border: 1px solid #dcdcdc;
+		color: #0b0e07;
+		font-size: 1.3em;
+		padding: 4px 3px;
+		width: 100%
 	}
+	
+	.catblock .filter .dropdown select {
+
+					float: left;
+					width: 160px;
+					margin-right:20px;
+					margin-top:10px;
+
+				}
+	
+
 	#otherprojects #projects-top {
 		background: url(/static/images/select-top.png) repeat-x left top;
 		width: 250px;
@@ -398,6 +535,7 @@ a:hover {
 	margin: 0 0 21px 0;
 	height: 46px;
 	position: relative;
+	padding-top: 21px;
 	/*_top: 54px;
 	_position: absolute;
 	_width: 100%;*/
@@ -413,18 +551,23 @@ a:hover {
 			margin-right: 25px;
 		}
 			#maincontent .subnav .cat-buttons li a {
-				color: #252525;
-				float: left;
-				height: 44px;
-				padding: 0;
-				display: block;
+				font-family: 'AkzidenzGroteskBQCondensedRg',arial;
+				font-size:16px;
+				color:#969696;
+				letter-spacing:.4333px;
+				line-height:33.15px;
 			}
+			#maincontent .subnav .cat-buttons li a.current{
+				color:#00A9DF;
+			}
+			#maincontent .subnav .cat-buttons li a:hover {
+				color:#101010;
+			}
+			
 			#maincontent .subnav .cat-buttons li.tabs-selected a#design_tab { background: url(/static/images/nav/carrot.png) no-repeat -10px -16px; }
 			#maincontent .subnav .cat-buttons li.tabs-selected a#strategy_tab { background: url(/static/images/nav/carrot.png) no-repeat -5px -16px; }
 			#maincontent .subnav .cat-buttons li.tabs-selected a#approved_tab { background: url(/static/images/nav/carrot.png) no-repeat -3px -16px; }
-			#maincontent .subnav .cat-buttons li a:hover {
-				color: #bdbcbc;
-			}
+			
 				#maincontent .cat-buttons li a div {
 					padding-top: 3px;
 				}
@@ -436,45 +579,40 @@ a:hover {
 	padding: 0 0 10px 0;
 }
 	.catblock .filter {
-		background-color: #f9f9f9;
+		background:url("/static/images/bg_masthead.png") no-repeat scroll center bottom transparent;
 		height: 23px;
 		padding: 6px 9px;
 		_padding: 4px 9px;
 		*padding: 5px 9px;
 		margin: 0 0 12px 0;
-		border: 1px solid #dadada;
+		height:36px;
 	}
 		.catblock .filter h3 {
-			font-size: 1.6em;
+			font-size: 15px;
 			float: left;
 			padding: 3px 10px 0 0;
+			height:31px;
+			line-height:31px;
+			font-family: 'PTSansBold',arial;
+
+			
 		}
 			.catblock .filter .dropdown {
 				_padding: 2px 0 0 0;
 				*padding: 1px 0 0 0;
 			}
-				.catblock .filter .dropdown select {
-					color: #252525;
-					font-size: 1.2em;
-					float: left;
-					background: url(/static/images/bg/bg_select.png) repeat-x left bottom;
-					width: 160px;
-					padding: 3px 2px;
-					margin: 0 23px 0 0;
-					border: 1px solid #dcdcdc;
-				}
-		.catblock .filter .views { padding: 2px 0 0 0; }
+				
+		.catblock .filter .views { padding: 2px 0 0 0; float:left;}
 			.catblock .filter .views a {
 				float: left;
-				width: 46px;
-				height: 20px;
+				height: 31px;
+				line-height: 31px;
 				margin: 0 5px 0 0;
-				text-indent: -9999px;
+				padding-left: 36px;
+				width: 68px;
 			}
-			.catblock .filter .views .list_view { background: url(/static/images/btn/list.png) no-repeat 0 0; }
-			.catblock .filter .views .list_view:hover { background-position: 0 -20px; }
-			.catblock .filter .views .grid_view { background: url(/static/images/btn/grid.png) no-repeat 0 0; }
-			.catblock .filter .views .grid_view:hover { background-position: 0 -20px; }
+			.catblock .filter .views #list_choice_input { background: url("/static/images/icon-list.png") no-repeat scroll 0 0 transparent}
+			.catblock .filter .views #grid_choice_input { background: url("/static/images/icon-grid.png") no-repeat scroll 0 0 transparent }
 		.catblock .filter h3.approved { 
 			background: url(/static/images/icon/check_gray.png) no-repeat 0 0;
 			height: 17px;
@@ -495,19 +633,17 @@ a:hover {
 		margin-bottom: 16px;
 		height: 19px;
 	}
-		.lead h2 {
-			color: #252525;
-			font-size: 2em;
-			text-transform: uppercase;
-			float: left;
-			padding: 2px 0 0 0;
-			_margin: 0;
+		.lead h2 {float:left;
+			border:none;
 		}
 		.lead .date {
 			float: right;
-			color: #c1c0c0;
-			font-size: 2em;
-			text-transform: uppercase;
+			color: #898989;
+			font-size: 16px;
+			margin-bottom: 0;
+			padding-left: 20px;
+			font-family: 'PTSansRegular',arial;
+			line-height:30px;
 		}
 	.contentblock p {
 		color: #797979;
@@ -524,12 +660,7 @@ a:hover {
 		line-height: 1.6em;
 		margin-bottom: 15px;
 	}
-	.contentblock p.pm-subcat {
-		font-size: 1.5em;
-		color: #252525;
-		text-transform: uppercase;
-		margin-bottom: 12px;
-	}
+	
 	.contentblock .grid {
 	
 	}
@@ -550,7 +681,7 @@ a:hover {
 				}
 				.contentblock .grid .thumbs .thumb img { 
 					margin: 0 0 4px 0;
-					border: 2px solid #d3d3d3; 
+					border: 1px solid #D9D9D9; 
 				}
 				.contentblock .grid .thumbs .thumb p { 
 					color: #252525;
@@ -566,26 +697,31 @@ a:hover {
 		font-size: 1.3em;
 		margin-bottom: 24px;
 	}
+		.contentblock ul.links li{
+		color: #575757;
+		font-family: 'PTSansRegular';
+		font-size: 15px;
+		margin: 0 0 2px;
+		padding: 5px 0;}
 		.contentblock ul.links li a {
-			color: #252525;
+			color: #00A9DF;
+					
 		}
-		.contentblock ul.links li {
-			margin-bottom: 10px;
-		}
+
 			.contentblock ul.links ul.slides {
 				padding-left: 20px;
-				_padding-bottom: 10px;
-				margin: 12px 0 0 0;
-				*margin: 8px 0 0 0;
+				
+
 			}
 			.contentblock ul.links ul.slides li { 
-				background: url(/static/images/icon/dot.png) no-repeat 10px 6px; 
+				background: url("/static/images/icon_jpg.gif") no-repeat scroll left 6px transparent;
 				_height: 4px;
 				*height: 16px;
 			}
 				.contentblock ul.links ul.slides li a {
 					color: #1e99c8;
 					padding-left: 20px;
+					font-family: 'PTSansRegular',arial;
 				}
 			.contentblock ul.links li span {
 				font-size: 10px;
@@ -619,8 +755,7 @@ a:hover {
 			padding-left: 20px;
 		}
 		.contentblock ul.links li.jpg {
-			background: url(/static/images/icon_jpg.gif) top left no-repeat;
-			padding-left: 20px;
+
 		}
 		.contentblock ul.links li.js {
 			background: url(/static/images/icon_js.gif) top left no-repeat;
@@ -941,6 +1076,24 @@ a:hover {
 				background-position: 0 -26px;
 			}
 
-.big {font-size: 18px;}
+.big {
+    color: #434345;
+    font-family: 'AkzidenzGroteskBQCondensedRg',arial;
+    font-size: 22px;
+	padding-top:40px;
+}
+#slide{padding:50px 0;}
+/*STICKY FOOTER*/
+html, body, #nonFooter { height: 100%; }
+body > #nonFooter { height: auto; min-height: 100%; }
+#footer {
+ clear: both;
+ position: relative;
+ z-index: 10;
+ height: 82px;
+ margin-top: -82px;
+}
+#nonFooter { padding-bottom: 82px; }
 
+#mainwrap > .wrapper > #slide > a > img {margin:0 auto;}
 /* ======================================================================================= */
