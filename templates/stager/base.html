@@ -41,7 +41,7 @@
 		<title>Ai Staging : {% spaceless %}{% block page_title %}{% endblock %}{% endspaceless %}</title>
 	</head>
 	<body class="{% block body_class %}{% endblock %}">
-
+	<div id="nonFooter">
 		<!-- {#%include "includes/adminbar.html" %} -->
 
 		<div id="header">
@@ -67,7 +67,7 @@
 				{% block main_content %} {% endblock %}
 			</div>
 		</div>
-		
+	</div>
 		<div id="footer">
 			<div class="wrapper">
 				<p>&copy; {% now "Y" %} Alexander Interactive</p>
